@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sql">
+	<select id="login_User" parameterType="HashMap" resultType="HashMap">
+    	select User from User_List where `User` = '${User}'
+	</select>
+	<select id="login" parameterType="kr.tory.note.beans.loginBean" resultType="kr.tory.note.beans.loginBean">
+    	select User , Password from User_List where `User` = '${User}' and `Password` = '${Password}'
+	</select>
+</mapper>
