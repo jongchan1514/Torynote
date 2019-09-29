@@ -8,7 +8,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Responsive sidebar template with sliding effect and dropdown menu based on bootstrap 3">
     <title>Tory Note</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -16,18 +18,27 @@
     <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
     <link rel="stylesheet" href="/resources/css/Home.css">
     <script src="/resources/js/home.js"></script>
-
+    <script>
+    var app = angular.module('app', ['ngRoute']);
+	app.config(['$routeProvider', ($routeProvider) => {
+		$routeProvider.when("/test", {templateUrl : 'test', controller: "appCTL1"})
+					  .otherwise({redirectTo: "/"});
+	}]);
+	app.controller('appCTL1', function($scope, $routeParams) {
+		console.log("appCTL1", $routeParams.param);
+	})
+    </script>
 </head>
 
-<body>
+<body data-ng-app="app">
 <div class="page-wrapper chiller-theme toggled">
-  <a id="show-sidebar" class="btn btn-sm btn-dark" href="#">
+  <a id="show-sidebar" class="btn btn-sm btn-dark" href="">
     <i class="fas fa-bars"></i>
   </a>
   <nav id="sidebar" class="sidebar-wrapper">
     <div class="sidebar-content">
       <div class="sidebar-brand">
-        <a href="#">Tory Note</a>
+        <a href="/Main">Tory Note</a>
         <div id="close-sidebar">
           <i class="fas fa-times"></i>
         </div>
@@ -90,7 +101,7 @@
             </div>
           </li>
           <li class="sidebar-dropdown">
-            <a href="#">
+            <a href="/Main#!/test">
               <i class="fa fa-shopping-cart"></i>
               <span>메모장</span>
               <span class="badge badge-pill badge-danger">3</span>
@@ -150,13 +161,15 @@
         <i class="fa fa-cog"></i>
         <span class="badge-sonar"></span>
       </a>
-      <a href="#">
+      <a>
         <i class="fa fa-power-off"></i>
       </a>
     </div>
   </nav>
   <!-- sidebar-wrapper  -->
   <section class="page-content">
+  	<div style="height: 100px;"></div>
+  	<div data-ng-view></div>
   </section>
 </div>
 </body>

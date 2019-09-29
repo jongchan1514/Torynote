@@ -58,13 +58,13 @@ public class LoginController {
 	}
 	@RequestMapping(value="/Main", method=RequestMethod.GET)
 	public String main(HttpServletRequest req) {
-		session = req.getSession(true);
-		if(session.getAttribute("val") == null) {
-			return "redirect:/";
-		}else {
-			System.out.println(session.getAttribute("val"));
+//		session = req.getSession(true);
+//		if(session.getAttribute("val") == null) {
+//			return "redirect:/";
+//		}else {
+//			System.out.println(session.getAttribute("val"));
 			return "Home";	
-		}
+//		}
 	}
 	@RequestMapping(value="/Sign", method=RequestMethod.POST)
 	public void sign(UserBean ub, HttpServletResponse res) {
@@ -88,5 +88,12 @@ public class LoginController {
 		} catch(IOException e) {
 			e.printStackTrace();
 		}	
+	}
+	
+	@RequestMapping(value="/test", method=RequestMethod.GET)
+	public String test() {
+		
+			return "Home_notice";	
+		
 	}
 }
