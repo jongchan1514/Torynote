@@ -1,6 +1,6 @@
 package kr.tory.note.beans;
 
-public class signBean {
+public class UserBean {
 	
 	private String User;
 	private String Password;

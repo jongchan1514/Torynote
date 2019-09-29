@@ -55,8 +55,11 @@
 							   'Age' : date 
 					  }
 				}).then(function(response) {
-					var test = response.data
-						
+					alert(response.data.result);
+					console.log(response.data);
+					if(response.data.Check == "Success"){
+						window.location.href = "/"
+					}
 				});
 			}
 			$scope.rotate = function(check){

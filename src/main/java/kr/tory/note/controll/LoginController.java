@@ -16,8 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import kr.tory.note.beans.loginBean;
-import kr.tory.note.beans.signBean;
+import kr.tory.note.beans.UserBean;
 import net.sf.json.JSONObject;
 
 
@@ -25,7 +24,7 @@ import net.sf.json.JSONObject;
 public class LoginController {
 	
 	HttpSession session;
-	List<kr.tory.note.beans.loginBean> User_Check = new ArrayList<kr.tory.note.beans.loginBean>();
+	List<kr.tory.note.beans.UserBean> User_Check = new ArrayList<kr.tory.note.beans.UserBean>();
 	HashMap<String, Object> result = new HashMap<String, Object>();
 	@Autowired
 	SqlSession ss;
@@ -35,20 +34,19 @@ public class LoginController {
 		return "Login";
 	}
 	@RequestMapping(value = "/Login", method = RequestMethod.POST)
-	public void login(loginBean lg, HttpServletResponse res, HttpServletRequest req) {
+	public void login(UserBean ub, HttpServletResponse res, HttpServletRequest req) {
 		session = req.getSession(true);
-		result.put("User", lg.getUser());
-		User_Check = ss.selectList("sql.login_User", result);
-		if(User_Check.size() == 0) {
+		User_Check = ss.selectList("sql.Check_User", ub);
+		if(ss.selectList("sql.Check_User", ub).size() == 0) {
 			result.put("result", "유저정보가 존재 하지 않습니다.");
 		}else {
-			if(ss.selectList("sql.login", lg).size() == 0) {
+			if(ss.selectList("sql.login", ub).size() == 0) {
 				result.put("result", "비밀번호를 확인해주세요.");
 			}else {
 				result.put("Check", "Ok");
-				result.put("result", "환영합니다  "+lg.getUser()+"  님");
+				result.put("result", "환영합니다  "+User_Check.get(0).getNickname()+"  님");
 				session.setMaxInactiveInterval(60);
-				session.setAttribute("val", lg.getUser().toString());
+				session.setAttribute("val", ub.getUser().toString());
 			}
 		}
 		try {
@@ -69,12 +67,26 @@ public class LoginController {
 		}
 	}
 	@RequestMapping(value="/Sign", method=RequestMethod.POST)
-	public String sign(signBean sb) {
-		result.put("User", sb.getUser());
-		System.out.println(ss.selectList("sql.login_User", result).size());
-		
-		System.out.println(sb);
-		
-			return "redirect:/";	
+	public void sign(UserBean ub, HttpServletResponse res) {
+		result.put("User", ub.getUser());
+		if(ss.selectList("sql.Check_User", result).size() != 0) {
+			result.put("result", "중복된 계정이 있습니다.");
+			result.put("Check", "fail");
+		}else {
+			if(ss.selectList("sql.Check_Nickname", ub).size() != 0) {
+				result.put("result", "중복된 닉네임이 있습니다.");
+				result.put("Check", "fail");
+			}else {
+				ss.insert("sql.Create_User", ub);
+				result.put("result", "회원가입 요청이 완료 되었습니다.");
+				result.put("Check", "Success");
+			}
+		}
+		try {
+			res.setCharacterEncoding("UTF-8");
+			res.getWriter().write(JSONObject.fromObject(result).toString());
+		} catch(IOException e) {
+			e.printStackTrace();
+		}	
 	}
 }
