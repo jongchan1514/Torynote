@@ -3,11 +3,11 @@
 <table class="table table-striped table-bordered table-hover">
   <thead>
     <tr>
-      <th>#</th>
+      <th data-ng-model=testadmin>#</th>
       <th>이름</th>
       <th>E-Mail</th>
       <th>가입 날짜</th>
     </tr>
    </thead>
  </table>
- <button class="test" type="button">a</button>
+ <button class="test" type="button">{{b}}</button>

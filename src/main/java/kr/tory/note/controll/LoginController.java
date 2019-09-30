@@ -89,11 +89,4 @@ public class LoginController {
 			e.printStackTrace();
 		}	
 	}
-	
-	@RequestMapping(value="/test", method=RequestMethod.GET)
-	public String test() {
-		
-			return "Home_notice";	
-		
-	}
 }
