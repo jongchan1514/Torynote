@@ -17,8 +17,10 @@
 	    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 	    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
 	    <link rel="stylesheet" href="/resources/css/Home.css">
+	    <script src="/resources/ckeditor/ckeditor.js"></script>
 	    <script src="/resources/js/home.js"></script>
 	    <script src="/resources/js/route.js"></script>
+	    
 	    <script>
 
 	    </script>
@@ -46,17 +48,13 @@
 		            <strong>염 종찬</strong>
 		          </span>
 		          <span class="user-role">Administrator</span>
-		          <span class="user-status">
-		            <i class="fa fa-circle"></i>
-		            <span>Online</span>
-		          </span>
 		        </div>
 		      </div>
 		      <div class="sidebar-search">
 		        <div>
 		          <div class="input-group">
-		            <input type="text" class="form-control search-menu" placeholder="Search...">
-		            <div class="input-group-append">
+		            <input type="text" class="form-control search-menu" placeholder="Search..." style="background-color: white; border-bottom-right-radius:5px; border-top-right-radius: 5px; color: black;">
+		            <div class="input-group-append" >
 		              <span class="input-group-text">
 		                <i class="fa fa-search" aria-hidden="true"></i>
 		              </span>
@@ -71,7 +69,7 @@
 		          </li>
 		          <li class="sidebar-dropdown">
 		            <a href="">
-		              <i class="fa fa-tachometer-alt"></i>
+		              <i class="fab fa-gratipay"></i>
 		              <span>사용자 정보 관리</span>
 		            </a>
 		            <div class="sidebar-submenu">
@@ -93,44 +91,44 @@
 		            <span>Contents</span>
 		          </li>
 		          <li class="sidebar-dropdown">
-		            <a href="#">
-		              <i class="fa fa-tachometer-alt"></i>
+		            <a href="">
+		              <i class="fas fa-book"></i>
 		              <span>게시물</span>
 		            </a>
 		            <div class="sidebar-submenu">
 		              <ul>
 		                <li>
-		                  <a href="#">공지사항</a>
+		                  <a href="">공지사항</a>
 		                </li>
 		                <li>
-		                  <a href="#">공개된 자료</a>
+		                  <a href="">자유 게시판</a>
 		                </li>
 		              </ul>
 		            </div>
 		          </li>
 		          <li class="sidebar-dropdown">
-		            <a href="#">
-		              <i class="fa fa-shopping-cart"></i>
+		            <a href="">
+		              <i class="fas fa-sticky-note"></i>
 		              <span>메모장</span>
 		            </a>
 		            <div class="sidebar-submenu">
 		              <ul>
 		                <li>
-		                  <a href="#">Products</a>
+		                  <a href="/Main#!/edit">게시물 작성</a>
 		                </li>
 		                <li>
-		                  <a href="#">Orders</a>
+		                  <a href="">내가 작성한 게시물</a>
 		                </li>
 		                <li>
-		                  <a href="#">Credit cart</a>
+		                  <a href="">공개 된 자료</a>
 		                </li>
 		              </ul>
 		            </div>
 		          </li>
 		          <li class="sidebar-dropdown">
-		            <a href="#">
+		            <a href="">
 		              <i class="fa fa-book"></i>
-		              <span>참조자료들</span>
+		              <span>무한한 가능성</span>
 		            </a>
 		            <div class="sidebar-submenu">
 		              <ul>
@@ -140,9 +138,6 @@
 		                <li>
 		                  <a href='https://pngtree.com/so/벚꽃'>벚꽃 png from pngtree.com</a>
 		                </li>
-		                <li>
-		                  <a href="#">Credit cart</a>
-		                </li>
 		              </ul>
 		            </div>
 		          </li>
@@ -150,6 +145,13 @@
 		            <span>대화창</span>
 		          </li>
 		        </ul>
+		        <div style="background-color: #ffffff; width: 100%; height: 300px;">
+		        <p>염종찬 : 안녕하세요</p>
+		        </div>
+		        <form action="">
+		        	<input type="text" style="width: 100%;">
+		        	<button type="button" style="width: 100%;">보내기</button>
+		        </form>
 		      </div>
 		    </div>
 		    <div class="sidebar-footer">
@@ -159,7 +161,9 @@
 		    </div>
 		  </nav>
 		  <section class="page-content">
-		  	<div style="height: 400px;"></div>
+		  	<div style="height: 380px;">
+		  	<h1 style="font-size:100px; color:  white; text-shadow:-1px 0 #848CB5,0 1px #848CB5,1px 0 #848CB5,0 -1px #848CB5;">T O R Y   N O T E</h1>
+		  	</div>
 		  	<div data-ng-view>
 		  	</div>
 		  </section>
