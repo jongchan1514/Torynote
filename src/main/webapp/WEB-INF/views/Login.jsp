@@ -32,19 +32,22 @@
 					  method: 'POST',
 					  url: '/Login',
 					  params: {'User' : $scope.User_login,
-							   'Password' : $scope.Password_login  
+							   'Password' : $scope.Password_login,
+							   'Nickname' : "test",
+							   'Sex' : "a" ,
+							   'Age' : "a"
 					  }
 				}).then(function(response) {
 					var test = response.data.Check
 						console.log(test)
-					 alert(response.data.result);
+					 alert(response.data.msg);
 					 if(test == "Ok"){
 						 window.location.href = "/Main";
 						 }
 				});
 			}
 			$scope.sign = function() {
-				var date = $("#date").bootstrapMaterialDatePicker("getDate")[0].value
+				var date = $("#date").bootstrapMaterialDatePicker("getDate")[0].value;
 				$http({
 					  method: 'POST',
 					  url: '/Sign',
@@ -55,11 +58,11 @@
 							   'Age' : date 
 					  }
 				}).then(function(response) {
-					alert(response.data.result);
+					alert(response.data.msg);
 					console.log(response.data);
-					if(response.data.Check == "Success"){
+					 if(response.data.Check == "Success"){
 						window.location.href = "/"
-					}
+					} 
 				});
 			}
 			$scope.rotate = function(check){
@@ -89,9 +92,9 @@
 		        		<div class="arkaSign">
 		            		<div class="loginbaslik">회원가입</div>
 		            		<hr style="border: 1px solid #ccc;">
-		            		<input class="giris" type="text" data-ng-model="User_Sign" placeholder="사용하실 계정을 입력해주세요" required autofocus>
-		            		<input class="giris" type="password" data-ng-model="Password_Sign" placeholder="비밀번호를 입력해주세요" required autofocus>
-		            		<input class="giris" type="password" data-ng-model="Nickname_Sign" placeholder="사용하실 닉네임을 입력해주세요" required autofocus>
+		            		<input id="use" class="giris" type="text" data-ng-model="User_Sign" placeholder="계정 4~16자리 사이로 입력하세요" required autofocus>
+		            		<input id="pwd" class="giris" type="password" data-ng-model="Password_Sign" placeholder="비밀번호 8~16자리 사이로 입력하세요" required autofocus>
+		            		<input id="nik" class="giris" type="text" data-ng-model="Nickname_Sign" placeholder="닉네임 4~16자리 사이로 입력하세요" required autofocus>
 		            		<select name="Sex" data-ng-model="Sex_Sign" class="giris" required autofocus>
 		            			<option value="">당신의 성별은?</option>
 		            			<option value="male">남성</option>

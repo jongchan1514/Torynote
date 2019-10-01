@@ -140,6 +140,30 @@
 		    <artifactId>angular-animate</artifactId>
 		    <version>1.7.8</version>
 		</dependency>
+		<dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-websocket</artifactId>
+            <version>4.1.6.RELEASE</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.5.3</version>
+            <scope>runtime</scope>
+        </dependency>
+        
+      <dependency>
+          <groupId>javax.validation</groupId>
+          <artifactId>validation-api</artifactId>
+          <version>2.0.1.Final</version>
+      </dependency>
+      <dependency>
+          <groupId>org.hibernate</groupId>
+          <artifactId>hibernate-validator</artifactId>
+          <version>6.0.17.Final</version>
+      </dependency>           
+        
 		
 
 		<!-- @Inject -->

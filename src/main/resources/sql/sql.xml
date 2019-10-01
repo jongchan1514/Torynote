@@ -5,7 +5,7 @@
 <mapper namespace="sql">
 	<!-- Login -->
 	<select id="login" parameterType="kr.tory.note.beans.UserBean" resultType="kr.tory.note.beans.UserBean">
-    	select User , Password from User_List where `User` = '${User}' and `Password` = '${Password}'
+    	select User , Password, Nickname from User_List where `User` = '${User}' and `Password` = '${Password}'
 	</select>
 	
 	<select id="Check_User" parameterType="kr.tory.note.beans.UserBean" resultType="kr.tory.note.beans.UserBean">
@@ -26,7 +26,6 @@
 	
 	
 	<insert id="Create_User" parameterType="kr.tory.note.beans.UserBean">
-		INSERT INTO User_List (USER,PASSWORD,Nickname,Sex,Age) VALUE('${User}','${Password}','${Nickname}','${Sex}','${Age}');
-		INSERT INTO User_Check (USER,Nickname) VALUE('${User}','${Nickname}');
+		INSERT INTO User_List (USER,PASSWORD,Nickname,Sex,Age) VALUE('${User}','${Password}','${Nickname}','${Sex}','${Age}')
 	</insert>
 </mapper>

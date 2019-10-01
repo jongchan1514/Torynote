@@ -1,5 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 <html>
 	<head>
@@ -17,13 +18,44 @@
 	    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 	    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
 	    <link rel="stylesheet" href="/resources/css/Home.css">
+	    <script type="text/javascript" src="<c:url value="/resources/js/sockjs-0.3.4.js"/>"></script>
 	    <script src="/resources/ckeditor/ckeditor.js"></script>
 	    <script src="/resources/js/home.js"></script>
 	    <script src="/resources/js/route.js"></script>
-	    
+	    <link href="https://fonts.googleapis.com/css?family=Single+Day&display=swap" rel="stylesheet">
 	    <script>
-
-	    </script>
+    		$(document).ready(function() {
+        		$("#sendBtn").click(function() {
+            		sendMessage();
+            		$("#message").val("");
+        		});
+    		});
+    		var sock;
+    		//웸소켓을 지정한 url로 연결한다.
+    		sock = new SockJS("<c:url value="/echo"/>");
+    		//자바스크립트 안에 function을 집어넣을 수 있음.
+    		//데이터가 나한테 전달되읐을 때 자동으로 실행되는 function
+    		sock.onmessage = onMessage;
+    		//데이터를 끊고싶을때 실행하는 메소드
+    		sock.onclose = onClose;
+    	/* sock.onopen = function(){
+        	sock.send($("#message").val());
+    	}; */
+    	function sendMessage() {
+        /*소켓으로 보내겠다.  */
+        sock.send($("#message").val());
+    	}
+    	//evt 파라미터는 웹소켓을 보내준 데이터다.(자동으로 들어옴)
+    	function onMessage(evt) {
+    		console.log(evt)
+        	var data = evt.data;
+        	$("#data").append(data + "<br/>");
+        	//sock.close();
+    	}
+    	function onClose(evt) {
+        $("#data").append("연결 끊김");
+    	}
+	</script>	
 	</head>
 	<body data-ng-app="app" id="torynote">
 		<div class="page-wrapper chiller-theme toggled">
@@ -145,17 +177,17 @@
 		            <span>대화창</span>
 		          </li>
 		        </ul>
-		        <div style="background-color: #ffffff; width: 100%; height: 300px;">
-		        <p>염종찬 : 안녕하세요</p>
+		        <div style="background-color: #ffffff; width: 100%; height: 300px; overflow:auto;">
+		        	<div id="data"></div>
 		        </div>
 		        <form action="">
-		        	<input type="text" style="width: 100%;">
-		        	<button type="button" style="width: 100%;">보내기</button>
+		        	<input type="text" id="message" style="width: 100%;">
+		        	<button type="button" id="sendBtn" style="width: 100%;">보내기</button>
 		        </form>
 		      </div>
 		    </div>
 		    <div class="sidebar-footer">
-		      <a>
+		      <a href="/Logout">
 		        <i class="fa fa-power-off"></i>
 		      </a>
 		    </div>
