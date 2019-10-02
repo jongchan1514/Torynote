@@ -504,3 +504,8 @@ body#torynote:after {
 .chiller-theme .sidebar-footer>a:last-child {
     border-right: none;
 }
+
+
+#notice1{
+	 background-color: #ffe2ed !important;
+}

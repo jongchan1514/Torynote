@@ -1,5 +1,6 @@
 package kr.tory.note.controll;
 import java.io.IOException;
+import java.lang.reflect.Member;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -35,38 +36,27 @@ public class LoginController {
 	@Autowired
 	SqlSession ss;
 	
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home() {
-		return "Login";
-	}
+
 	@RequestMapping(value = "/Login", method = RequestMethod.POST)
 	public void login(UserBean ub, HttpServletResponse res, HttpServletRequest req) {
 		session = req.getSession(true);
-		
 		if(ss.selectList("sql.Check_User", ub).size() == 0) {
 			result.put("msg", "유저정보가 존재 하지 않습니다.");
 		}else {
 			if((User_Check = ss.selectList("sql.login", ub)).size() == 0) {
 				result.put("msg", "비밀번호를 확인해주세요.");
 			}else {
-				
+				if((User_Check.get(0).getNickname()).equals("관리자") || (User_Check.get(0).getNickname()).equals("염종찬")) {
+					result.put("Adm", "Yes");
+				}
 				result.put("Check", "Ok");
+				result.put("Adm", "no");
 				result.put("msg", "환영합니다  "+User_Check.get(0).getNickname()+"  님");
 				session.setMaxInactiveInterval(6000);
 				session.setAttribute("val", User_Check.get(0).getNickname());				
 			}
 		}
 		msgs(res);
-	}
-	@RequestMapping(value="/Main", method=RequestMethod.GET)
-	public String main(HttpServletRequest req) {
-		session = req.getSession(true);
-		if(session.getAttribute("val") == null) {
-			return "redirect:/";
-		}else {
-			System.out.println(session.getAttribute("val"));
-			return "Home";	
-		}
 	}
 	
 	@RequestMapping(value="/Sign", method=RequestMethod.POST)
@@ -83,11 +73,7 @@ public class LoginController {
 			sign.signservice(ub, res);
 		}
 	}
-	@RequestMapping(value="/Logout", method=RequestMethod.GET)
-	public String Logout(HttpServletRequest req) {
-		session.invalidate();
-		return "redirect:/";	
-	}
+
 	public void msgs(HttpServletResponse res) {
 		try {
 			res.setCharacterEncoding("UTF-8");

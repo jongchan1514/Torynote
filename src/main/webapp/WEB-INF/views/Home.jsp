@@ -19,7 +19,7 @@
 	    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
 	    <link rel="stylesheet" href="/resources/css/Home.css">
 	    <script type="text/javascript" src="<c:url value="/resources/js/sockjs-0.3.4.js"/>"></script>
-	    <script src="/resources/ckeditor/ckeditor.js"></script>
+	    <script src="/resources/lib/ckeditor/ckeditor.js"></script>
 	    <script src="/resources/js/home.js"></script>
 	    <script src="/resources/js/route.js"></script>
 	    <link href="https://fonts.googleapis.com/css?family=Single+Day&display=swap" rel="stylesheet">
@@ -28,6 +28,7 @@
         		$("#sendBtn").click(function() {
             		sendMessage();
             		$("#message").val("");
+            		$("#char").scrollTop($("#char").prop('scrollHeight'));
         		});
     		});
     		var sock;
@@ -57,7 +58,7 @@
     	}
 	</script>	
 	</head>
-	<body data-ng-app="app" id="torynote">
+	<body data-ng-app="app" id="torynote" data-ng-controller="app_root">
 		<div class="page-wrapper chiller-theme toggled">
 		  <a id="show-sidebar" class="btn btn-sm btn-dark" href="">
 		    <i class="fas fa-bars"></i>
@@ -94,7 +95,7 @@
 		          </div>
 		        </div>
 		      </div>
-		      <div class="sidebar-menu">
+		      <div class="sidebar-menu" data-ng-show="show">
 		        <ul>
 		          <li class="header-menu">
 		            <span>관리자 메뉴</span>
@@ -149,10 +150,10 @@
 		                  <a href="/Main#!/edit">게시물 작성</a>
 		                </li>
 		                <li>
-		                  <a href="">내가 작성한 게시물</a>
+		                  <a href="/Main#!/notice1">내가 작성한 게시물</a>
 		                </li>
 		                <li>
-		                  <a href="">공개 된 자료</a>
+		                  <a href="">공개 된 게시물</a>
 		                </li>
 		              </ul>
 		            </div>
@@ -177,12 +178,12 @@
 		            <span>대화창</span>
 		          </li>
 		        </ul>
-		        <div style="background-color: #ffffff; width: 100%; height: 300px; overflow:auto;">
+		        <div id=char style="background-color: #ffffff; width: 100%; height: 300px; overflow:auto;">
 		        	<div id="data"></div>
 		        </div>
 		        <form action="">
 		        	<input type="text" id="message" style="width: 100%;">
-		        	<button type="button" id="sendBtn" style="width: 100%;">보내기</button>
+		        	<button type="submit" id="sendBtn" style="width: 100%;">보내기</button>
 		        </form>
 		      </div>
 		    </div>

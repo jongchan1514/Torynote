@@ -25,7 +25,15 @@
 	</select>
 	
 	
+	<select id="notice1" resultType="HashMap">
+		SELECT Title,Nickname,Notice,No FROM testtable;
+	</select>
+	
+	
 	<insert id="Create_User" parameterType="kr.tory.note.beans.UserBean">
 		INSERT INTO User_List (USER,PASSWORD,Nickname,Sex,Age) VALUE('${User}','${Password}','${Nickname}','${Sex}','${Age}')
+	</insert>
+	<insert id="testinsert" parameterType="HashMap">
+		INSERT INTO testtable (Title,Nickname,Notice,Tags) VALUE('${Title}','${Nickname}','${Notice}','${Tags}');
 	</insert>
 </mapper>

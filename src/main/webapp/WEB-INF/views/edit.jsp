@@ -7,5 +7,5 @@
         <textarea name="editor" id="editor" rows="10" cols="80" ></textarea>
         <br>
         <button type="submit">입력</button>
-        <button type="button"></button>
+        <button type="button">취소</button>
    	</form>

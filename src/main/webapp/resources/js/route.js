@@ -3,7 +3,9 @@ var app = angular.module('app', ['ngRoute']);
 		$routeProvider.when("/apply", {templateUrl : 'apply', controller: "app_apply"})
 					  .when("/list", {templateUrl : 'list', controller: "app_list"})
 					  .when("/edit", {templateUrl : 'edit', controller: "app_edit"})
+					  .when("/notice1", {templateUrl : 'notice1', controller: "app_notice1"})
 					  .otherwise({redirectTo: "/"});
+					  
 	}]);
 	app.controller('app_apply', function($scope, $routeParams, $http, $rootScope) {
 			$http({
@@ -14,7 +16,6 @@ var app = angular.module('app', ['ngRoute']);
 				$scope.apply = response.data.result;
 			});
 	});
-	
 	app.controller('app_list', function($scope, $routeParams, $http, $rootScope) {
 		$http({
 			  method: 'POST',
@@ -25,10 +26,15 @@ var app = angular.module('app', ['ngRoute']);
 		});
 	});
 	app.controller('app_edit', function($scope, $routeParams, $http, $rootScope) {
+		
 		CKEDITOR.replace('editor', {
             uiColor: '#FFFFFF',
             resize_enabled: false,
-            toolbar: [
+            filebrowserUploadUrl : '/imageUpload',
+//            extraPlugins : 'uploadimage',
+            toolbar: 
+            	
+            	[
                   { name: 'document', items: [ 'Source', '-', 'Save', 'NewPage', 'Preview', 'Print', '-', 'Templates' ] },
                   { name: 'clipboard', items: [ 'Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo' ] },
                   { name: 'editing', items: [ 'Find', 'Replace', '-', 'SelectAll', '-', 'Scayt' ] },
@@ -45,4 +51,24 @@ var app = angular.module('app', ['ngRoute']);
                   { name: 'about', items: [ 'About' ] }
             ]
          });
+	});
+	app.controller('app_notice1', function($scope, $routeParams, $http, $rootScope) {
+		$http({
+			  method: 'POST',
+			  url: '/notice1',
+			  params: {}
+		}).then(function(res) {
+			$scope.notice1 = res.data.data;
+		});
+	});
+	app.controller('app_root', function($scope, $routeParams, $http, $rootScope) {
+		$http({
+			  method: 'POST',
+			  url: '/Root',
+			  params: {}
+		}).then(function(response) {
+			$scope.show = response.data.result;
+			console.log(response.data.result);
+		});
+		console.log($scope.show)
 	});
