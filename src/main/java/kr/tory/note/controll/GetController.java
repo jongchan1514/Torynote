@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -15,21 +16,11 @@ public class GetController {
 	public String home() {
 		return "Login";
 	}
-	@RequestMapping(value = "/apply", method = RequestMethod.GET)
-	public String Users() {
-		return "Admin_apply";
-	}
-	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public String test() {
-		return "Home_list";	
-	}
-	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public String edit() {
-		return "edit";		
-	}
-	@RequestMapping(value = "/notice1", method = RequestMethod.GET)
-	public String notice1() {
-		return "notice_list1";		
+	@RequestMapping(value = "/{Url}", method = RequestMethod.GET)
+	public String Users(@PathVariable("Url")String url, HttpServletRequest req) {
+		String geturl = url;
+		System.out.println(url);
+		return geturl;
 	}
 	@RequestMapping(value="/Logout", method=RequestMethod.GET)
 	public String Logout(HttpServletRequest req ,HttpSession session) {

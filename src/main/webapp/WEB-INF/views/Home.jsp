@@ -18,17 +18,20 @@
 	    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 	    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
 	    <link rel="stylesheet" href="/resources/css/Home.css">
+	    <link rel="stylesheet" href="/resources/css/effects.css">
 	    <script type="text/javascript" src="<c:url value="/resources/js/sockjs-0.3.4.js"/>"></script>
 	    <script src="/resources/lib/ckeditor/ckeditor.js"></script>
 	    <script src="/resources/js/home.js"></script>
+	    <script src="/resources/js/effects.js"></script>
 	    <script src="/resources/js/route.js"></script>
 	    <link href="https://fonts.googleapis.com/css?family=Single+Day&display=swap" rel="stylesheet">
+	    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-sanitize/1.6.9/angular-sanitize.js"></script>
 	    <script>
     		$(document).ready(function() {
+    			$('body').sakura();
         		$("#sendBtn").click(function() {
             		sendMessage();
             		$("#message").val("");
-            		$("#char").scrollTop($("#char").prop('scrollHeight'));
         		});
     		});
     		var sock;
@@ -48,9 +51,9 @@
     	}
     	//evt 파라미터는 웹소켓을 보내준 데이터다.(자동으로 들어옴)
     	function onMessage(evt) {
-    		console.log(evt)
         	var data = evt.data;
         	$("#data").append(data + "<br/>");
+        	$("#char").scrollTop($("#char").prop('scrollHeight'));
         	//sock.close();
     	}
     	function onClose(evt) {
@@ -150,7 +153,7 @@
 		                  <a href="/Main#!/edit">게시물 작성</a>
 		                </li>
 		                <li>
-		                  <a href="/Main#!/notice1">내가 작성한 게시물</a>
+		                  <a href="/Main#!/notice">내가 작성한 게시물</a>
 		                </li>
 		                <li>
 		                  <a href="">공개 된 게시물</a>
@@ -181,10 +184,10 @@
 		        <div id=char style="background-color: #ffffff; width: 100%; height: 300px; overflow:auto;">
 		        	<div id="data"></div>
 		        </div>
-		        <form action="">
-		        	<input type="text" id="message" style="width: 100%;">
-		        	<button type="submit" id="sendBtn" style="width: 100%;">보내기</button>
-		        </form>
+		        	<form>
+		        		<input type="text" id="message" style="width: 100%;">
+		        		<button type="submit" id="sendBtn" style="width: 100%;">보내기</button>
+		        	</form>
 		      </div>
 		    </div>
 		    <div class="sidebar-footer">

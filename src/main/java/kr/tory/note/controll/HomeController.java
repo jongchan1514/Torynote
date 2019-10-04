@@ -29,9 +29,9 @@ public class HomeController {
 	SqlSession ss;
 	
 	HashMap<String, Object> result = new HashMap<String, Object>();
-	@RequestMapping(value = "/notice1", method = RequestMethod.POST)
+	@RequestMapping(value = "/notice", method = RequestMethod.POST)
 	public void notice1(HttpServletRequest req, HttpSession session, HttpServletResponse res) {
-		result.put("data",(ss.selectList("sql.notice1")));
+		result.put("data",(ss.selectList("sql.notice")));
 		try {
 			res.setCharacterEncoding("UTF-8");
 			res.getWriter().write(JSONObject.fromObject(result).toString());
@@ -57,16 +57,16 @@ public class HomeController {
 		}	
 	}
 	
-	@RequestMapping(value = "/test", method = RequestMethod.POST)
-	public String test(HttpServletRequest req, HttpSession session) {
-		HashMap<String, Object> testmap = new HashMap<String, Object>();
+	@RequestMapping(value = "/edit_insert", method = RequestMethod.POST)
+	public String edit_insert(HttpServletRequest req, HttpSession session) {
+		HashMap<String, Object> insert_map = new HashMap<String, Object>();
 		String notice = req.getParameter("editor");
 		notice = notice.replaceAll("(<([^>]+)>)","");
-		testmap.put("Title", req.getParameter("title"));
-		testmap.put("Tags", req.getParameter("editor"));
-		testmap.put("Notice", notice);
-		testmap.put("Nickname", session.getAttribute("val"));
-		ss.insert("sql.testinsert",testmap);
+		insert_map.put("Title", req.getParameter("title"));
+		insert_map.put("Tags", req.getParameter("editor"));
+		insert_map.put("Notice", notice);
+		insert_map.put("Nickname", session.getAttribute("val"));
+		ss.insert("sql.notice_insert",insert_map);
 	
 //		세션의 전체 정보를 가져오기 위한 코드
 //		Enumeration<?> test = session.getAttributeNames();
@@ -76,7 +76,7 @@ public class HomeController {
 //		}  
 		
 		
-		return "redirect:/Main#!/notice1";
+		return "redirect:/Main#!/notice";
 	}
 	@RequestMapping(value = "/apply", method = RequestMethod.POST)
 	public void apply(HttpServletResponse res) {
@@ -108,5 +108,40 @@ public class HomeController {
 		List<HashMap<String, Object>> files = HttpUtil.fileUpload(req, "upload");
 		System.out.println(files.toString());
 		HttpUtil.imgUpload(req, res, files);
+	}
+	@RequestMapping(value="/view", method = RequestMethod.POST)
+	public void view(HttpServletRequest req, HttpServletResponse res){
+		HashMap<String, Object> call = new HashMap<String, Object>();
+		call.put("No", req.getParameter("No"));
+		call.put("Nickname", req.getParameter("Nickname"));
+		call.put("Title", req.getParameter("Title"));
+		result.put("result",(ss.selectList("sql.view",call)));
+		JSONObject jobj = JSONObject.fromObject(result);
+		try {
+			res.setCharacterEncoding("UTF-8");
+			res.getWriter().write(jobj.toString());	
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	@RequestMapping(value = "/edit_alt", method = RequestMethod.POST)
+	public String edit_alt(HttpServletRequest req, HttpSession session) {
+		HashMap<String, Object> alt_map = new HashMap<String, Object>();
+		String notice = req.getParameter("alt");
+		notice = notice.replaceAll("(<([^>]+)>)","");
+		alt_map.put("Title", req.getParameter("title"));
+		alt_map.put("Tags", req.getParameter("alt"));
+		alt_map.put("No", req.getParameter("no"));
+		alt_map.put("Notice", notice);
+		alt_map.put("Nickname", session.getAttribute("val"));
+		System.out.println(alt_map.toString());
+		ss.update("sql.notice_alt",alt_map);
+//		세션의 전체 정보를 가져오기 위한 코드
+//		Enumeration<?> test = session.getAttributeNames();
+//		while (test.hasMoreElements()) {
+//			String string = (String) test.nextElement();
+//			System.out.println("key(" + string + ")" + session.getAttribute(string));
+//		}  
+		return "redirect:/Main#!/notice";
 	}
 }

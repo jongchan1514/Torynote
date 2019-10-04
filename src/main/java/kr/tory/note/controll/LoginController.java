@@ -1,6 +1,7 @@
 package kr.tory.note.controll;
 import java.io.IOException;
 import java.lang.reflect.Member;
+import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -22,6 +23,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.tory.note.beans.UserBean;
 import kr.tory.note.service.Signservice;
+import kr.tory.note.util.HttpUtil;
 import net.sf.json.JSONObject;
 
 
@@ -82,4 +84,6 @@ public class LoginController {
 			e.printStackTrace();
 		}
 	}
+	
+
 }

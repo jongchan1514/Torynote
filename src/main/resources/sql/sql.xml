@@ -25,15 +25,27 @@
 	</select>
 	
 	
-	<select id="notice1" resultType="HashMap">
-		SELECT Title,Nickname,Notice,No FROM testtable;
+	<select id="notice" resultType="HashMap">
+		SELECT Title,Nickname,Notice,No FROM notice_table;
+	</select>
+	
+	<select id="view" parameterType="Hashmap" resultType="Hashmap">
+		SELECT Title,Tags,No FROM notice_table WHERE `NO`='${No}' AND Title='${Title}'  and Yn='N'
 	</select>
 	
 	
 	<insert id="Create_User" parameterType="kr.tory.note.beans.UserBean">
 		INSERT INTO User_List (USER,PASSWORD,Nickname,Sex,Age) VALUE('${User}','${Password}','${Nickname}','${Sex}','${Age}')
 	</insert>
-	<insert id="testinsert" parameterType="HashMap">
-		INSERT INTO testtable (Title,Nickname,Notice,Tags) VALUE('${Title}','${Nickname}','${Notice}','${Tags}');
+	<insert id="notice_insert" parameterType="HashMap">
+		INSERT INTO notice_table (Title,Nickname,Notice,Tags) VALUE('${Title}','${Nickname}','${Notice}','${Tags}');
 	</insert>
+	
+	
+	<update id="notice_alt" parameterType="HashMap">
+		UPDATE notice_table SET `Title` = '${Title}' , `Notice` = '${Notice}' , `Tags` = '${Tags}' where `No` = '${No}';
+	</update>
+	<update id="notice_delete" parameterType="HashMap">
+		UPDATE notice_table SET `delYn` = Y  where `No` = '${No}';
+	</update>
 </mapper>

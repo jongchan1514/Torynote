@@ -208,4 +208,24 @@ public class HttpUtil {
 			}
 
 		}
+	 	
+	 	/*********비밀번호 암호화 *****************/
+		public static String pwd(String passwd) {
+			String sspwd="";
+			try{	 
+	            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+	            byte[] hash = digest.digest(passwd.getBytes("UTF-8"));
+	            StringBuffer hexString = new StringBuffer();
+	 
+	            for (int i = 0; i < hash.length; i++) {
+	                String hex = Integer.toHexString(0xff & hash[i]);
+	                if(hex.length() == 1) hexString.append('0');
+	                hexString.append(hex);
+	            }
+	            sspwd = hexString.toString();
+	        } catch(Exception ex){
+	            throw new RuntimeException(ex);
+	        }
+			return sspwd;
+		}
 }
