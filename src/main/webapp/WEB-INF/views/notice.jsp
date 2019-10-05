@@ -35,6 +35,8 @@
         		<div id="viewval" class="modal-body"data-ng-model="views" data-ng-bind-html="views.Tags"></div>
 			    <div class="modal-footer">
 			       <button type="button" class="btn btn-primary" data-ng-click="alt()" data-toggle="modal"  href="#myModal">수정</button>
+			       <button type="button" class="btn btn-primary" data-ng-click="delete()" data-toggle="modal"  href="#myModal">삭제</button>
+			       <button type="button" class="btn btn-primary" data-toggle="modal"  href="#myModal">닫기</button>
 			    </div>					
 			</div>
 		</div>

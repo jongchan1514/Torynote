@@ -59,14 +59,15 @@ public class HomeController {
 	
 	@RequestMapping(value = "/edit_insert", method = RequestMethod.POST)
 	public String edit_insert(HttpServletRequest req, HttpSession session) {
-		HashMap<String, Object> insert_map = new HashMap<String, Object>();
-		String notice = req.getParameter("editor");
-		notice = notice.replaceAll("(<([^>]+)>)","");
-		insert_map.put("Title", req.getParameter("title"));
-		insert_map.put("Tags", req.getParameter("editor"));
-		insert_map.put("Notice", notice);
-		insert_map.put("Nickname", session.getAttribute("val"));
-		ss.insert("sql.notice_insert",insert_map);
+		System.out.println(req.getParameter("editor"));
+//		HashMap<String, Object> insert_map = new HashMap<String, Object>();
+//		String notice = req.getParameter("editor");
+//		notice = notice.replaceAll("(<([^>]+)>)","");
+//		insert_map.put("Title", req.getParameter("title"));
+//		insert_map.put("Tags", req.getParameter("editor"));
+//		insert_map.put("Notice", notice);
+//		insert_map.put("Nickname", session.getAttribute("val"));
+//		ss.insert("sql.notice_insert",insert_map);
 	
 //		세션의 전체 정보를 가져오기 위한 코드
 //		Enumeration<?> test = session.getAttributeNames();
@@ -75,8 +76,8 @@ public class HomeController {
 //			System.out.println("key(" + string + ")" + session.getAttribute(string));
 //		}  
 		
-		
-		return "redirect:/Main#!/notice";
+		return null;
+//		return "redirect:/Main#!/notice";
 	}
 	@RequestMapping(value = "/apply", method = RequestMethod.POST)
 	public void apply(HttpServletResponse res) {

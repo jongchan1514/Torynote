@@ -26,7 +26,6 @@ var app = angular.module('app', ['ngRoute','ngSanitize']);
 		});
 	});
 	app.controller('app_edit', function($scope, $routeParams, $http, $rootScope) {
-		
 		CKEDITOR.replace('editor', {
             uiColor: '#ffe2ed',
             resize_enabled: false,
@@ -50,6 +49,16 @@ var app = angular.module('app', ['ngRoute','ngSanitize']);
                   { name: 'about', items: [ 'About' ] }
             ]
          });
+		$scope.insert = function() {
+			var test = CKEDITOR.instances.editor.getData();	
+			$http({
+				  method: 'POST',
+				  url: '/edit_insert',
+				  params: {'Title' : $scope.edit_title,
+					  	   'editor' : test
+				  }
+			})
+		}
 	});
 	app.controller('app_notice', function($scope, $routeParams, $http, $rootScope) {
 		$scope.boolean = false;

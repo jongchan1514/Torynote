@@ -8,7 +8,7 @@
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"
 		p:driverClassName="org.mariadb.jdbc.Driver"
-		p:url="jdbc:mysql://192.168.3.114:58808/Tory_Note"
+		p:url="jdbc:mysql://192.168.219.165:58808/Tory_Note"
 		p:username="moonstory9"
 		p:password="151412as"
 	/>
