@@ -21,6 +21,7 @@
 	    <link rel="stylesheet" href="/resources/css/effects.css">
 	    <script type="text/javascript" src="<c:url value="/resources/js/sockjs-0.3.4.js"/>"></script>
 	    <script src="/resources/lib/ckeditor/ckeditor.js"></script>
+	    <script src="/resources/lib/ckeditor/config.js"></script>
 	    <script src="/resources/js/home.js"></script>
 	    <script src="/resources/js/effects.js"></script>
 	    <script src="/resources/js/route.js"></script>

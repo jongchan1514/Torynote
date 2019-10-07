@@ -25,17 +25,20 @@
 	    <li class="page-item"><a class="page-link" href="">다음페이지</a></li>
 	  </ul>
 	</nav>
+	
 	<div class="modal fade" id="myModal">
 		<div class="modal-dialog">
       		<div class="modal-content">
         		<div class="modal-header">
         			<h3 id="viewtitle" class="modal-title" data-ng-model="views">{{views.Title}}</h3>
+        			<input type="hidden" value="{{views.No}}">
+        			<input type="hidden" value="{{views.Nickname}}">
           			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
         		</div>
         		<div id="viewval" class="modal-body"data-ng-model="views" data-ng-bind-html="views.Tags"></div>
 			    <div class="modal-footer">
 			       <button type="button" class="btn btn-primary" data-ng-click="alt()" data-toggle="modal"  href="#myModal">수정</button>
-			       <button type="button" class="btn btn-primary" data-ng-click="delete()" data-toggle="modal"  href="#myModal">삭제</button>
+			       <button type="button" class="btn btn-primary" data-ng-click="delete_data()" data-toggle="modal"  href="#myModal">삭제</button>
 			       <button type="button" class="btn btn-primary" data-toggle="modal"  href="#myModal">닫기</button>
 			    </div>					
 			</div>
@@ -43,14 +46,14 @@
 	</div>
 	</div>
 	
-	 <form action="/edit_alt" method="POST" data-ng-hide=!boolean>
-    	<input type="text" name="title" style="width: 100%;" placeholder="제목을 입력해주세요" value="{{views.Title}}">
+	 <form data-ng-hide=!boolean>
+	 <input type="text" name="tiqqtle" style="width: 100%;" placeholder="제목을 입력해주세요" data-ng-model="views.Title" value="{{views.Title}}">
     	<input type="hidden" name="no" value="{{views.No}}">
     	<br>
     	<br>
         <textarea name="alt" id="alt" rows="10" cols="80" ></textarea>
         <br>
-        <button type="submit">입력</button>
-        <button type="button">취소</button>
+        <button data-ng-click="alt_data()">입력</button>
+        <button data-ng-click="cancel()">취소</button>
    	</form>
 			     

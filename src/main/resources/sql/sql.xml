@@ -26,11 +26,11 @@
 	
 	
 	<select id="notice" resultType="HashMap">
-		SELECT Title,Nickname,Notice,No FROM notice_table;
+		SELECT Title,Nickname,Notice,No FROM Notice_table where `DelYn`='N' and `Nickname` = '${Nickname}';
 	</select>
 	
 	<select id="view" parameterType="Hashmap" resultType="Hashmap">
-		SELECT Title,Tags,No FROM notice_table WHERE `NO`='${No}' AND Title='${Title}'  and Yn='N'
+		SELECT Title,Tags,No FROM Notice_table WHERE `NO`='${No}' AND `Title`='${Title}' and `DelYn`='N'
 	</select>
 	
 	
@@ -38,14 +38,14 @@
 		INSERT INTO User_List (USER,PASSWORD,Nickname,Sex,Age) VALUE('${User}','${Password}','${Nickname}','${Sex}','${Age}')
 	</insert>
 	<insert id="notice_insert" parameterType="HashMap">
-		INSERT INTO notice_table (Title,Nickname,Notice,Tags) VALUE('${Title}','${Nickname}','${Notice}','${Tags}');
+		INSERT INTO Notice_table (Title,Nickname,Notice,Tags) VALUE('${Title}','${Nickname}','${Notice}','${Tags}');
 	</insert>
 	
 	
 	<update id="notice_alt" parameterType="HashMap">
-		UPDATE notice_table SET `Title` = '${Title}' , `Notice` = '${Notice}' , `Tags` = '${Tags}' where `No` = '${No}';
+		UPDATE Notice_table SET `Title` = '${Title}' , `Notice` = '${Notice}' , `Tags` = '${Tags}' where `No` = '${No}';
 	</update>
 	<update id="notice_delete" parameterType="HashMap">
-		UPDATE notice_table SET `delYn` = Y  where `No` = '${No}';
+		UPDATE Notice_table SET `DelYn` = 'Y'  where `No` = '${No}';
 	</update>
 </mapper>
