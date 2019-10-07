@@ -69,15 +69,12 @@ public class HomeController {
 		insert_map.put("Notice", notice);
 		insert_map.put("Nickname", session.getAttribute("val"));
 		ss.insert("sql.notice_insert",insert_map);
-		System.out.println("Adsdsadasdsa");
-	
 //		세션의 전체 정보를 가져오기 위한 코드
 //		Enumeration<?> test = session.getAttributeNames();
 //		while (test.hasMoreElements()) {
 //			String string = (String) test.nextElement();
 //			System.out.println("key(" + string + ")" + session.getAttribute(string));
 //		}  
-//		
 		return "/notice";
 	}
 	@RequestMapping(value = "/apply", method = RequestMethod.POST)
@@ -130,13 +127,14 @@ public class HomeController {
 	public String edit_alt(HttpServletRequest req, HttpSession session) {
 		HashMap<String, Object> alt_map = new HashMap<String, Object>();
 		String notice = req.getParameter("editor");
+		String test = notice.replaceAll("^h.x?","됬는가?");
+		System.out.println(test);
 		notice = notice.replaceAll("(<([^>]+)>)","");
 		alt_map.put("Title", req.getParameter("Title"));
 		alt_map.put("Tags", req.getParameter("editor"));
 		alt_map.put("No", req.getParameter("No"));
 		alt_map.put("Notice", notice);
 		alt_map.put("Nickname", session.getAttribute("val"));
-		System.out.println("alt : ; : : "+alt_map.toString());
 		ss.update("sql.notice_alt",alt_map);
 		return "/notice";
 	}

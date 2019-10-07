@@ -35,7 +35,7 @@
         			<input type="hidden" value="{{views.Nickname}}">
           			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
         		</div>
-        		<div id="viewval" class="modal-body"data-ng-model="views" data-ng-bind-html="views.Tags"></div>
+        		<div id="viewval" class="modal-body"data-ng-model="views" data-ng-bind-html="views.Tags"  style="width: auto; height: auto;"></div>
 			    <div class="modal-footer">
 			       <button type="button" class="btn btn-primary" data-ng-click="alt()" data-toggle="modal"  href="#myModal">수정</button>
 			       <button type="button" class="btn btn-primary" data-ng-click="delete_data()" data-toggle="modal"  href="#myModal">삭제</button>

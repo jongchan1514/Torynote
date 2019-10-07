@@ -6,6 +6,6 @@
     	<br>
         <textarea name="editor" id="editor" rows="10" cols="80" ></textarea>
         <br>
-        <button type="submit" data-ng-click="insert()">입력</button>
-        <button type="button">취소</button>
+        <button type="button" data-ng-click="insert()">입력</button>
+        <button type="button" data-ng-click="cancel()">취소</button>
    	</form>

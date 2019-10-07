@@ -1,21 +1,46 @@
 CKEDITOR.editorConfig = function( config ) {
    config.language = 'ko';
-   config.uiColor = '#b22222';
+   config.uiColor = '#ffe2ed';
+   config.skin = 'moonocolor';
+   config.resize_dir = 'both';
    config.height = 300;
    config.toolbarCanCollapse = true; 
-    config.filebrowserUploadUrl = '/yumyum/upload';
+   config.filebrowserUploadUrl = '/imageUpload';
+   config.extraPlugins = 'youtube';
+   config.youtube_responsive = true;
+   config.youtube_related = true;
+   config.youtube_autoplay = false;
+   config.youtube_older = false;
+   config.youtube_privacy = false;
+   config.toolbar = 
+   	[
+         { name: 'document', items: [ 'Source', '-', 'Save', 'NewPage', 'Preview', 'Print', '-', 'Templates' ] },
+         { name: 'clipboard', items: [ 'Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo' ] },
+         { name: 'editing', items: [ 'Find', 'Replace', '-', 'SelectAll', '-', 'Scayt' ] },
+         { name: 'forms', items: [ 'Form', 'Checkbox', 'Radio', 'TextField', 'Textarea', 'Select', 'Button', 'ImageButton', 'HiddenField' ] },
+         '/',
+         { name: 'basicstyles', items: [ 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'CopyFormatting', 'RemoveFormat' ] },
+         { name: 'paragraph', items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', 'CreateDiv', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-', 'BidiLtr', 'BidiRtl', 'Language' ] },
+         { name: 'links', items: [ 'Link', 'Unlink', 'Anchor' ] },
+         { name: 'insert', items: [ 'Image', 'Flash', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar', 'PageBreak', 'Iframe' ,'Youtube' ] },
+         '/',
+         { name: 'styles', items: [ 'Styles', 'Format', 'Font', 'FontSize' ] },
+         { name: 'colors', items: [ 'TextColor', 'BGColor' ] },
+         { name: 'tools', items: [ 'Maximize', 'ShowBlocks' ] },
+         { name: 'about', items: [ 'About'] }
+   ];
     
-    config.toolbarGroups = [ { name: 'document',  groups: [ 'mode' ] }, 
-                             { name: 'clipboard', groups: [ 'clipboard', 'undo' ] }, 
+//    config.toolbarGroups = [ { name: 'document',  groups: [ 'mode' ] }, 
+//                             { name: 'clipboard', groups: [ 'clipboard', 'undo' ] }, 
 //                             { name: 'editing',   groups: [ 'find', 'selection', 'spellchecker' ] },
-                             '/',
+//                             '/',
 //                             { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
 //                             { name: 'paragraph',   groups: [ 'list', 'indent', 'blocks', 'align', 'bidi' ] },
-                             { name: 'links',     groups: ['links',  'insert']}, 
+//                             { name: 'links',     groups: ['links',  'insert']}, 
 //                             { name: 'tools' }, 
-                             { name: 'colors' },
-                             { name: 'about' }      
-   ];
+//                             { name: 'colors' },
+//                             { name: 'about' }      
+//   ];
 };
 
 /*
