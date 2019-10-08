@@ -9,6 +9,7 @@ CKEDITOR.editorConfig = function( config ) {
    config.extraAllowedContent = 'iframe[*]'
    config.filebrowserUploadUrl = '/imageUpload';
    config.extraPlugins = 'youtube';
+   config.extraPlugins = 'iframe';
    config.youtube_responsive = true;
    config.youtube_related = true;
    config.youtube_autoplay = false;

@@ -79,8 +79,8 @@
 		      </div>
 		      <div class="sidebar-header">
 		        <div class="user-pic">
-		          <img class="img-responsive img-rounded" src="../upload/{{userimg}}"
-		            alt="User picture">
+		          <!-- <img class="img-responsive img-rounded" data-ng-src="{{userimg}}" style="vertical-align: middle; border-style: none;" alt="User picture"> -->
+		          <img data-ng-src="{{userimg}}" style="vertical-align: middle; border-style: none;" alt="User picture">
 		        </div>
 		        <div class="user-info">
 		          <span class="user-name">

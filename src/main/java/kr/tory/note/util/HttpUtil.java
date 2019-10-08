@@ -106,8 +106,6 @@ public class HttpUtil {
 		 					continue;
 		 				}
 		 				
-		 				
-		 			
 		 				/*톰캣 서버 배포시*/
 		 				savefullPath = savefolder + "/" + encodeFilename + "." + fileextension;	
 		 				String dbsaveFullPath = "../" + path + "/" + today + "/" + encodeFilename + "." + fileextension;

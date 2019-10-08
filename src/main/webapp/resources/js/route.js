@@ -45,7 +45,7 @@ var app = angular.module('app', ['ngRoute','ngSanitize']);
 		}
 	});
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	app.controller('app_notice', function($scope, $routeParams, $http, $rootScope) {
+	app.controller('app_notice', function($scope, $routeParams, $http, $rootScope,$sce) {
 		$scope.boolean = false;
 		CKEDITOR.replace('alt', {});
 		$http({
@@ -69,6 +69,7 @@ var app = angular.module('app', ['ngRoute','ngSanitize']);
 				params : params
 			}).then(function(res) {
 				$scope.views = res.data.result[0];
+				$scope.views.Tags = $sce.trustAsHtml(res.data.result[0].Tags);
 			})
 		}
 		$scope.alt = function(){
@@ -127,7 +128,7 @@ var app = angular.module('app', ['ngRoute','ngSanitize']);
 			  params: {}
 		}).then(function(response) {
 			$scope.show = response.data.result;
-			$scope.userimg = response.data.data[0].img;
+			$scope.userimg = "/../upload/" + response.data.data[0].img;
 			$scope.usernick = response.data.data[0].Nickname;
 		});
 	});
