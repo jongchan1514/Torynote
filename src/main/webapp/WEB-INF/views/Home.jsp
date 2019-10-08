@@ -79,14 +79,13 @@
 		      </div>
 		      <div class="sidebar-header">
 		        <div class="user-pic">
-		          <img class="img-responsive img-rounded" src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg"
+		          <img class="img-responsive img-rounded" src="../upload/{{userimg}}"
 		            alt="User picture">
 		        </div>
 		        <div class="user-info">
 		          <span class="user-name">
-		            <strong>염 종찬</strong>
+		            <strong>{{usernick}}</strong>
 		          </span>
-		          <span class="user-role">Administrator</span>
 		        </div>
 		      </div>
 		      <div class="sidebar-search">
@@ -159,7 +158,7 @@
 		                  <a href="/Main#!/notice">내가 작성한 게시물</a>
 		                </li>
 		                <li>
-		                  <a href="">공개 된 게시물</a>
+		                  <a href="/Main#!/open_notice">공개 된 게시물</a>
 		                </li>
 		              </ul>
 		            </div>

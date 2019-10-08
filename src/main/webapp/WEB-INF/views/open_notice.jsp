@@ -44,16 +44,6 @@
 			</div>
 		</div>
 	</div>
-	</div>
-	
-	 <form data-ng-hide=!boolean>
-	 <input type="text" name="tiqqtle" style="width: 100%;" placeholder="제목을 입력해주세요" data-ng-model="views.Title" value="{{views.Title}}">
-    	<input type="hidden" name="no" value="{{views.No}}">
-    	<br>
-    	<br>
-        <textarea name="alt" id="alt" rows="10" cols="80" ></textarea>
-        <br>
-        <button data-ng-click="alt_data()">입력</button>
-        <button data-ng-click="cancel()">취소</button>
-   	</form>
+</div>
+
 			     

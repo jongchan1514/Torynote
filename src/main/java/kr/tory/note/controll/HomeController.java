@@ -41,10 +41,24 @@ public class HomeController {
 			e.printStackTrace();
 		}
 	}
+	@RequestMapping(value = "/open_notice", method = RequestMethod.POST)
+	public void open_notice(HttpServletRequest req, HttpSession session, HttpServletResponse res) {
+		HashMap<String, Object> useview = new HashMap<String, Object>();
+		useview.put("Nickname", session.getAttribute("val"));
+		result.put("data",(ss.selectList("sql.notice", useview)));
+		try {
+			res.setCharacterEncoding("UTF-8");
+			res.getWriter().write(JSONObject.fromObject(result).toString());
+		} catch(IOException e) {
+			e.printStackTrace();
+		}
+	}
 	@RequestMapping(value="/Root", method=RequestMethod.POST)
 	public void root(HttpServletRequest req, HttpSession hs, HttpServletResponse res) {
 		String AdmCheck = hs.getAttribute("val").toString();
-		HashMap<String, Boolean> result = new HashMap<String, Boolean>();
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		result.put("Nickname" , AdmCheck);
+		result.put("data",ss.selectList("sql.data" , result));
 		if(AdmCheck.equals("관리자") || AdmCheck.equals("염종찬")) {
 			result.put("result", true);
 		}else {
@@ -52,6 +66,7 @@ public class HomeController {
 		}
 		JSONObject jobj = JSONObject.fromObject(result);
 		try {
+			System.out.println(result.toString());
 			res.setCharacterEncoding("UTF-8");
 			res.getWriter().write(jobj.toString());
 		} catch (IOException e) {
@@ -69,12 +84,6 @@ public class HomeController {
 		insert_map.put("Notice", notice);
 		insert_map.put("Nickname", session.getAttribute("val"));
 		ss.insert("sql.notice_insert",insert_map);
-//		세션의 전체 정보를 가져오기 위한 코드
-//		Enumeration<?> test = session.getAttributeNames();
-//		while (test.hasMoreElements()) {
-//			String string = (String) test.nextElement();
-//			System.out.println("key(" + string + ")" + session.getAttribute(string));
-//		}  
 		return "/notice";
 	}
 	@RequestMapping(value = "/apply", method = RequestMethod.POST)
@@ -105,7 +114,7 @@ public class HomeController {
 	@RequestMapping(value="/imageUpload")
 	public void imageUpload(HttpServletResponse res, MultipartHttpServletRequest req) {
 		List<HashMap<String, Object>> files = HttpUtil.fileUpload(req, "upload");
-		System.out.println(files.toString());
+//		System.out.println(files.toString());
 		HttpUtil.imgUpload(req, res, files);
 	}
 	@RequestMapping(value="/view", method = RequestMethod.POST)
@@ -127,8 +136,6 @@ public class HomeController {
 	public String edit_alt(HttpServletRequest req, HttpSession session) {
 		HashMap<String, Object> alt_map = new HashMap<String, Object>();
 		String notice = req.getParameter("editor");
-		String test = notice.replaceAll("^h.x?","됬는가?");
-		System.out.println(test);
 		notice = notice.replaceAll("(<([^>]+)>)","");
 		alt_map.put("Title", req.getParameter("Title"));
 		alt_map.put("Tags", req.getParameter("editor"));

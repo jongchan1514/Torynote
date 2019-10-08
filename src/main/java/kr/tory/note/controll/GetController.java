@@ -28,7 +28,6 @@ public class GetController {
 		if(session.getAttribute("val") == null) {
 			return "redirect:/";
 		}else {
-			System.out.println(session.getAttribute("val"));
 			return "Home";	
 		}
 	}
@@ -46,6 +45,10 @@ public class GetController {
 	}	
 	@RequestMapping(value = "/notice", method = RequestMethod.GET)	
 	public String notice() {	
+		return "notice";			
+	}
+	@RequestMapping(value = "/open_notice", method = RequestMethod.GET)	
+	public String open_notice() {	
 		return "notice";			
 	}
 

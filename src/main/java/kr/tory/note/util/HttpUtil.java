@@ -44,7 +44,10 @@ public class HttpUtil {
 		 		String orgFilename = "";
 		 		String fileextension = "";
 		 		String today = sf.format(new Date());
-		 		String savefolder = request.getSession().getServletContext().getRealPath("/") + "resources/file/" + path + "/" + today;
+		 		/*톰캣 서버 war파일 배포 시*/
+		 		String savefolder = request.getSession().getServletContext().getRealPath("/") + "../" + path + "/" + today;
+		 		/*개발서버 사용 시*/
+//		 		String savefolder = request.getSession().getServletContext().getRealPath("/") + "resources/file/" + path + "/" + today;
 		
 		 		Boolean isExtension = false;
 		 		String[] extension = null;
@@ -54,8 +57,6 @@ public class HttpUtil {
 		 			extension = new String[] { "jpg", "png", "gif", "mp3", "wmv", "mkv", "avi", "mp4", "csv", "xls", "xlsx",
 		 					"hwp", "ppt", "pptx", "doc", "zip", "7z", "alz","txt" };
 		 		}
-		
-		
 		 		// File클래스 실제 저장
 		 		File savePath = new File(savefolder);
 		
@@ -104,10 +105,16 @@ public class HttpUtil {
 		 				if (!isExtension) {
 		 					continue;
 		 				}
-		
-		 				savefullPath = savefolder + "/" + encodeFilename + "." + fileextension;
-		 				String dbsaveFullPath = "/resources/file/" + path + "/" + today + "/" + encodeFilename + "." + fileextension;
-		 				System.out.println(dbsaveFullPath);
+		 				
+		 				
+		 			
+		 				/*톰캣 서버 배포시*/
+		 				savefullPath = savefolder + "/" + encodeFilename + "." + fileextension;	
+		 				String dbsaveFullPath = "../" + path + "/" + today + "/" + encodeFilename + "." + fileextension;
+		 				
+		 				/*개발 서버 이용시*/
+//		 				savefullPath = savefolder + "/" + encodeFilename + "." + fileextension;
+//		 				String dbsaveFullPath = "/resources/file/" + path + "/" + today + "/" + encodeFilename + "." + fileextension;
 		 				
 		 				// 파일 경로 = 저장폴더 + 인코딩된 원본이름 + . + 확장자
 		 				fileMap.put("Path", dbsaveFullPath);
