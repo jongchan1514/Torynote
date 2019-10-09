@@ -17,12 +17,13 @@
     <br>
 	<nav aria-label="Pagination alignment">
 	  <ul class="pagination justify-content-center">
-	    <li class="page-item "><a class="page-link" href="">이전페이지</a></li>
-	    <li class="page-item"><a class="page-link" href="">1</a></li>
-	    <li class="page-item"><a class="page-link" href="">2</a></li>
-	    <li class="page-item"><a class="page-link" href="">3</a></li>
-	    <li class="page-item"><a class="page-link" href="">4</a></li>
-	    <li class="page-item"><a class="page-link" href="">다음페이지</a></li>
+	    <li class="page-item "><a class="page-link" data-ng-disabled="currentPage == 1" data-ng-click="currentPage=currentPage-5">이전페이지</a></li>
+	    <li class="page-item"><a class="page-link" data-ng-if = "pageSize >= 1" data-ng-click="test(currentPage)">{{currentPage}}</a></li>
+	    <li class="page-item"><a class="page-link" data-ng-if = "pageSize >= 2" data-ng-click="test(currentPage+1)">{{currentPage+1}}</a></li>
+	    <li class="page-item"><a class="page-link" data-ng-if = "pageSize >= 3" data-ng-click="test(currentPage+2)">{{currentPage+2}}</a></li>
+	    <li class="page-item"><a class="page-link" data-ng-if = "pageSize >= 4" data-ng-click="test(currentPage+3)">{{currentPage+3}}</a></li>
+	    <li class="page-item"><a class="page-link" data-ng-if = "pageSize >= 5" data-ng-click="test(currentPage+4)">{{currentPage+4}}</a></li> 
+	    <li class="page-item"><a class="page-link" data-ng-disabled="currentPage >= notice_size.length/pageSize - 1" data-ng-click="currentPage=currentPage+5">다음페이지</a></li>
 	  </ul>
 	</nav>
 	

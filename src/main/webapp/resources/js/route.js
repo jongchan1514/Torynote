@@ -47,6 +47,7 @@ var app = angular.module('app', ['ngRoute','ngSanitize']);
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	app.controller('app_notice', function($scope, $routeParams, $http, $rootScope,$sce) {
 		$scope.boolean = false;
+		var ListSize;
 		CKEDITOR.replace('alt', {});
 		$http({
 			  method: 'POST',
@@ -54,7 +55,18 @@ var app = angular.module('app', ['ngRoute','ngSanitize']);
 			  params: {}
 		}).then(function(res) {
 			$scope.notice = res.data.data;
+			$scope.notice_size = 100;
+//				res.data.data.length;
+			$scope.currentPage = 1;
+			ListSize = Math.ceil($scope.notice_size/5);
+			$scope.pageSize = Math.ceil($scope.notice_size / ListSize);
 		});
+		$scope.prev = function(){
+			$scope.currentPage
+		}
+		$scope.test = function(index){
+			alert(index);
+		}
 		$scope.view = function(index) {
 			var len = ($scope.notice.length-1)-index;
 			var data = $scope.notice[len];
@@ -67,7 +79,7 @@ var app = angular.module('app', ['ngRoute','ngSanitize']);
 				method:'POST',
 				url: '/view',
 				params : params
-			}).then(function(res) {
+			}).then(function(res) { 
 				$scope.views = res.data.result[0];
 				$scope.views.Tags = $sce.trustAsHtml(res.data.result[0].Tags);
 			})
