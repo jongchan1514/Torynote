@@ -46,8 +46,8 @@ var app = angular.module('app', ['ngRoute','ngSanitize']);
 	});
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	app.controller('app_notice', function($scope, $routeParams, $http, $rootScope,$sce) {
+		$scope.currentPage = 1;
 		$scope.boolean = false;
-		var ListSize;
 		CKEDITOR.replace('alt', {});
 		$http({
 			  method: 'POST',
@@ -55,17 +55,43 @@ var app = angular.module('app', ['ngRoute','ngSanitize']);
 			  params: {}
 		}).then(function(res) {
 			$scope.notice = res.data.data;
-			$scope.notice_size = 100;
-//				res.data.data.length;
-			$scope.currentPage = 1;
-			ListSize = Math.ceil($scope.notice_size/5);
-			$scope.pageSize = Math.ceil($scope.notice_size / ListSize);
+			$scope.notice_size = res.data.data.length;
+			$scope.page_prev.data = false;
+			$scope.page_next.data = false;				
+			$scope.pageSize = Math.ceil($scope.notice_size/5);
+			if($scope.currentPage == 1) {
+				$scope.page_prev.data = true;
+			}else{
+				$scope.page_prev.data = false;
+			}
+			if($scope.currentPage + 5 >= $scope.pageSize){
+				 $scope.page_next.data = true;
+			}else{
+				$scope.page_next.data = false;
+			}
 		});
-		$scope.prev = function(){
-			$scope.currentPage
-		}
 		$scope.test = function(index){
-			alert(index);
+			var len = index-1;
+			$http({
+				  method: 'POST',
+				  url: '/notice',
+				  params: {}
+			}).then(function(res) {
+				var page_len = (res.data.data.length) - len;
+				var page_list = [];
+				for(var i = 0; i < page_len; i++){
+					page_list[i] = res.data.data[i];
+				}
+				$scope.notice = page_list;
+			});
+		}
+		$scope.page_prev = function(){
+			$scope.currentPage = $scope.currentPage-5;
+			if($scope.currentPage <= $scope.pageSize) $scope.page_next.data = false;
+		}
+		$scope.page_next = function(){
+			$scope.currentPage = $scope.currentPage+5;
+			if($scope.currentPage+5 >= $scope.pageSize) $scope.page_next.data = true;
 		}
 		$scope.view = function(index) {
 			var len = ($scope.notice.length-1)-index;
@@ -74,7 +100,6 @@ var app = angular.module('app', ['ngRoute','ngSanitize']);
 				     'Nickname' :  $scope.notice[len].Nickname,
 				     'Title' :  $scope.notice[len].Title
 			};
-			
 			$http({
 				method:'POST',
 				url: '/view',

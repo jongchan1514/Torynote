@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <div data-ng-hide=boolean>
-      <div class="container" style="color: #848CB5; margin-bottom: 20px;" data-ng-click="view($index)" data-ng-repeat="val in notice | orderBy : '-No'" data-toggle="modal" href="#myModal" >
+      <div class="container" style="color: #848CB5; margin-bottom: 20px;" data-ng-click="view($index)" data-ng-repeat="val in notice | orderBy : '-No' | limitTo  : 5 " data-toggle="modal" href="#myModal" >
     	<div class="card flex-row flex-wrap">
     		<input type="hidden" value="{{val.No}}">
     		<div class="card-footer w-100 text-muted" style="background-color: #ffe2ed">
@@ -17,13 +17,13 @@
     <br>
 	<nav aria-label="Pagination alignment">
 	  <ul class="pagination justify-content-center">
-	    <li class="page-item "><a class="page-link" data-ng-disabled="currentPage == 1" data-ng-click="currentPage=currentPage-5">이전페이지</a></li>
-	    <li class="page-item"><a class="page-link" data-ng-if = "pageSize >= 1" data-ng-click="test(currentPage)">{{currentPage}}</a></li>
-	    <li class="page-item"><a class="page-link" data-ng-if = "pageSize >= 2" data-ng-click="test(currentPage+1)">{{currentPage+1}}</a></li>
-	    <li class="page-item"><a class="page-link" data-ng-if = "pageSize >= 3" data-ng-click="test(currentPage+2)">{{currentPage+2}}</a></li>
-	    <li class="page-item"><a class="page-link" data-ng-if = "pageSize >= 4" data-ng-click="test(currentPage+3)">{{currentPage+3}}</a></li>
-	    <li class="page-item"><a class="page-link" data-ng-if = "pageSize >= 5" data-ng-click="test(currentPage+4)">{{currentPage+4}}</a></li> 
-	    <li class="page-item"><a class="page-link" data-ng-disabled="currentPage >= notice_size.length/pageSize - 1" data-ng-click="currentPage=currentPage+5">다음페이지</a></li>
+	    <li class="page-item"><button class="page-link" data-ng-model="page_prev.data" data-ng-disabled="page_prev.data" data-ng-click="page_prev()">이전페이지</button></li>
+	    <li class="page-item"><button class="page-link" data-ng-if = "pageSize >= 1" data-ng-click="test(currentPage)">{{currentPage}}</button></li>
+	    <li class="page-item"><button class="page-link" data-ng-if = "pageSize >= 2" data-ng-click="test(currentPage+5)">{{currentPage+1}}</button></li>
+	    <li class="page-item"><button class="page-link" data-ng-if = "pageSize >= 3" data-ng-click="test(currentPage+10)">{{currentPage+2}}</button></li>
+	    <li class="page-item"><button class="page-link" data-ng-if = "pageSize >= 4" data-ng-click="test(currentPage+15)">{{currentPage+3}}</button></li>
+	    <li class="page-item"><button class="page-link" data-ng-if = "pageSize >= 5" data-ng-click="test(currentPage+20)">{{currentPage+4}}</button></li> 
+	    <li class="page-item"><button class="page-link" data-ng-model="page_next.data" data-ng-disabled="page_next.data" data-ng-click="page_next()">다음페이지</button></li>
 	  </ul>
 	</nav>
 	

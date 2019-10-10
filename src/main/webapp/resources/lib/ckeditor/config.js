@@ -9,7 +9,6 @@ CKEDITOR.editorConfig = function( config ) {
    config.extraAllowedContent = 'iframe[*]'
    config.filebrowserUploadUrl = '/imageUpload';
    config.extraPlugins = 'youtube';
-   config.extraPlugins = 'iframe';
    config.youtube_responsive = true;
    config.youtube_related = true;
    config.youtube_autoplay = false;
@@ -25,7 +24,7 @@ CKEDITOR.editorConfig = function( config ) {
          { name: 'basicstyles', items: [ 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'CopyFormatting', 'RemoveFormat' ] },
          { name: 'paragraph', items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', 'CreateDiv', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-', 'BidiLtr', 'BidiRtl', 'Language' ] },
          { name: 'links', items: [ 'Link', 'Unlink', 'Anchor' ] },
-         { name: 'insert', items: [ 'Image', 'Flash', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar', 'PageBreak', 'Iframe' ,'Youtube' ] },
+         { name: 'insert', items: [ 'Image', 'Flash', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar', 'PageBreak','Youtube'  ] },
          '/',
          { name: 'styles', items: [ 'Styles', 'Format', 'Font', 'FontSize' ] },
          { name: 'colors', items: [ 'TextColor', 'BGColor' ] },
