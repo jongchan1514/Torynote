@@ -49,7 +49,14 @@ public class GetController {
 	}
 	@RequestMapping(value = "/open_notice", method = RequestMethod.GET)	
 	public String open_notice() {	
-		return "notice";			
+		return "open_notice";			
 	}
-
+	@RequestMapping(value = "/open_table", method = RequestMethod.GET)	
+	public String open_table() {	
+		return "open_table";			
+	}
+	@RequestMapping(value = "/news", method = RequestMethod.GET)	
+	public String news() {	
+		return "news";			
+	}
 }

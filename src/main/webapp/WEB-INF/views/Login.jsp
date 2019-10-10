@@ -9,8 +9,6 @@
 		<link rel="stylesheet" href="/resources/css/login.css?after">
 		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>	
-
-
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-datetimepicker/2.7.1/css/bootstrap-material-datetimepicker.min.css" />
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
@@ -38,10 +36,9 @@
 							   'Age' : "a"
 					  }
 				}).then(function(response) {
-					var test = response.data.Check
-						console.log(test)
+					var msg = response.data.Check
 					 alert(response.data.msg);
-					 if(test == "Ok"){
+					 if(msg == "Ok"){
 						 window.location.href = "/Main";
 						 }
 				});
@@ -59,7 +56,6 @@
 					  }
 				}).then(function(response) {
 					alert(response.data.msg);
-					console.log(response.data);
 					 if(response.data.Check == "Success"){
 						window.location.href = "/"
 					} 

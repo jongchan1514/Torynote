@@ -5,18 +5,37 @@ var app = angular.module('app', ['ngRoute','ngSanitize']);
 					  .when("/edit", {templateUrl : 'edit', controller: "app_edit"})
 					  .when("/notice", {templateUrl : 'notice', controller: "app_notice"})
 					  .when("/open_notice", {templateUrl : 'open_notice', controller: "app_open_notice"})
+					  .when("/open_table", {templateUrl : 'open_table', controller: "app_open_table"})
 					  .otherwise({redirectTo: "/"});
 					  
 	}]);
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	app.controller('app_apply', function($scope, $routeParams, $http, $rootScope) {
-			$http({
-				  method: 'POST',
-				  url: '/apply',
-				  params: {}
-			}).then(function(response) {
-				$scope.apply = response.data.result;
-			});
+			$scope.reload = function(){
+				$http({
+					  method: 'POST',
+					  url: '/apply',
+					  params: {}
+				}).then(function(response) {
+					$scope.apply = response.data.result;
+				});
+			}
+			$scope.user_apply = function(index){
+				
+				var test = $scope.apply[index];
+				console.log(test);
+				$http({
+					  method: 'POST',
+					  url: '/user_apply',
+					  params: {
+						  'User' : $scope.apply[index].USER,
+						  'Nickname' : $scope.apply[index].Nickname
+					  }
+				}).then(function(response) {
+					alert(response.data.msg);
+				});
+			}
+			$scope.reload();
 	});
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	app.controller('app_list', function($scope, $routeParams, $http, $rootScope) {
@@ -70,7 +89,7 @@ var app = angular.module('app', ['ngRoute','ngSanitize']);
 				$scope.page_next.data = false;
 			}
 		});
-		$scope.test = function(index){
+		$scope.page = function(index){
 			var len = index-1;
 			$http({
 				  method: 'POST',
@@ -171,12 +190,28 @@ var app = angular.module('app', ['ngRoute','ngSanitize']);
 	});
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	app.controller('app_open_notice', function($scope, $routeParams, $http, $rootScope) {
+		$scope.currentPage = 1;
 		$http({
 			  method: 'POST',
 			  url: '/open_notice',
 			  params: {}
 		}).then(function(res) {
 			$scope.notice = res.data.data;
+			$scope.notice = res.data.data;
+			$scope.notice_size = res.data.data.length;
+			$scope.page_prev.data = false;
+			$scope.page_next.data = false;				
+			$scope.pageSize = Math.ceil($scope.notice_size/5);
+			if($scope.currentPage == 1) {
+				$scope.page_prev.data = true;
+			}else{
+				$scope.page_prev.data = false;
+			}
+			if($scope.currentPage + 5 >= $scope.pageSize){
+				 $scope.page_next.data = true;
+			}else{
+				$scope.page_next.data = false;
+			}
 		});
 		$scope.view = function(index) {
 			var len = ($scope.notice.length-1)-index;
@@ -185,7 +220,6 @@ var app = angular.module('app', ['ngRoute','ngSanitize']);
 				     'Nickname' :  $scope.notice[len].Nickname,
 				     'Title' :  $scope.notice[len].Title
 			};
-			
 			$http({
 				method:'POST',
 				url: '/view',
@@ -194,4 +228,31 @@ var app = angular.module('app', ['ngRoute','ngSanitize']);
 				$scope.views = res.data.result[0];
 			})
 		}
+		$scope.test = function(index){
+			var len = index-1;
+			$http({
+				  method: 'POST',
+				  url: '/open_notice',
+				  params: {}
+			}).then(function(res) {
+				var page_len = (res.data.data.length) - len;
+				var page_list = [];
+				for(var i = 0; i < page_len; i++){
+					page_list[i] = res.data.data[i];
+				}
+				$scope.notice = page_list;
+			});
+		}
+		$scope.page_prev = function(){
+			$scope.currentPage = $scope.currentPage-5;
+			if($scope.currentPage <= $scope.pageSize) $scope.page_next.data = false;
+		}
+		$scope.page_next = function(){
+			$scope.currentPage = $scope.currentPage+5;
+			if($scope.currentPage+5 >= $scope.pageSize) $scope.page_next.data = true;
+		}
+	});
+	app.controller('app_open_table', function($scope, $routeParams, $http, $rootScope) {
+		
+		
 	});

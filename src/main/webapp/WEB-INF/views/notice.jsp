@@ -18,11 +18,11 @@
 	<nav aria-label="Pagination alignment">
 	  <ul class="pagination justify-content-center">
 	    <li class="page-item"><button class="page-link" data-ng-model="page_prev.data" data-ng-disabled="page_prev.data" data-ng-click="page_prev()">이전페이지</button></li>
-	    <li class="page-item"><button class="page-link" data-ng-if = "pageSize >= 1" data-ng-click="test(currentPage)">{{currentPage}}</button></li>
-	    <li class="page-item"><button class="page-link" data-ng-if = "pageSize >= 2" data-ng-click="test(currentPage+5)">{{currentPage+1}}</button></li>
-	    <li class="page-item"><button class="page-link" data-ng-if = "pageSize >= 3" data-ng-click="test(currentPage+10)">{{currentPage+2}}</button></li>
-	    <li class="page-item"><button class="page-link" data-ng-if = "pageSize >= 4" data-ng-click="test(currentPage+15)">{{currentPage+3}}</button></li>
-	    <li class="page-item"><button class="page-link" data-ng-if = "pageSize >= 5" data-ng-click="test(currentPage+20)">{{currentPage+4}}</button></li> 
+	    <li class="page-item"><button class="page-link" data-ng-if = "pageSize >= 1" data-ng-click="page(currentPage)">{{currentPage}}</button></li>
+	    <li class="page-item"><button class="page-link" data-ng-if = "pageSize >= 2" data-ng-click="page(currentPage+5)">{{currentPage+1}}</button></li>
+	    <li class="page-item"><button class="page-link" data-ng-if = "pageSize >= 3" data-ng-click="page(currentPage+10)">{{currentPage+2}}</button></li>
+	    <li class="page-item"><button class="page-link" data-ng-if = "pageSize >= 4" data-ng-click="page(currentPage+15)">{{currentPage+3}}</button></li>
+	    <li class="page-item"><button class="page-link" data-ng-if = "pageSize >= 5" data-ng-click="page(currentPage+20)">{{currentPage+4}}</button></li> 
 	    <li class="page-item"><button class="page-link" data-ng-model="page_next.data" data-ng-disabled="page_next.data" data-ng-click="page_next()">다음페이지</button></li>
 	  </ul>
 	</nav>
@@ -38,9 +38,10 @@
         		</div>
         		<div id="viewval" class="modal-body"data-ng-model="views" data-ng-bind-html="views.Tags"></div>
 			    <div class="modal-footer">
-			       <button type="button" class="btn btn-primary" data-ng-click="alt()" data-toggle="modal"  href="#myModal">수정</button>
+			       <button type="button" class="btn btn-info" data-ng-click="notice_open()" data-toggle="modal"  href="#myModal">공개전환</button>
+			       <button type="button" class="btn btn-warning" data-ng-click="alt()" data-toggle="modal"  href="#myModal">수정</button>
 			       <button type="button" class="btn btn-primary" data-ng-click="delete_data()" data-toggle="modal"  href="#myModal">삭제</button>
-			       <button type="button" class="btn btn-primary" data-toggle="modal"  href="#myModal">닫기</button>
+			       <button type="button" class="btn btn-danger" data-toggle="modal"  href="#myModal">닫기</button>
 			    </div>					
 			</div>
 		</div>

@@ -19,6 +19,7 @@
 	    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
 	    <link rel="stylesheet" href="/resources/css/Home.css">
 	    <link rel="stylesheet" href="/resources/css/effects.css">
+	    <link rel="stylesheet" href="/resources/css/table.css">
 	    <script type="text/javascript" src="<c:url value="/resources/js/sockjs-0.3.4.js"/>"></script>
 	    <script src="/resources/lib/ckeditor/ckeditor.js"></script>
 	    <script src="/resources/lib/ckeditor/config.js"></script>
@@ -129,23 +130,23 @@
 		            <span>Contents</span>
 		          </li>
 		          <li class="sidebar-dropdown">
-		            <a href="">
+		            <a>
 		              <i class="fas fa-book"></i>
 		              <span>게시물</span>
 		            </a>
 		            <div class="sidebar-submenu">
 		              <ul>
 		                <li>
-		                  <a href="">공지사항</a>
+		                  <a href="/Main#!/news">공지사항</a>
 		                </li>
 		                <li>
-		                  <a href="">자유 게시판</a>
+		                  <a href="/Main#!/open_table">자유 게시판</a>
 		                </li>
 		              </ul>
 		            </div>
 		          </li>
 		          <li class="sidebar-dropdown">
-		            <a href="">
+		            <a>
 		              <i class="fas fa-sticky-note"></i>
 		              <span>메모장</span>
 		            </a>
@@ -164,7 +165,7 @@
 		            </div>
 		          </li>
 		          <li class="sidebar-dropdown">
-		            <a href="">
+		            <a>
 		              <i class="fa fa-book"></i>
 		              <span>무한한 가능성</span>
 		            </a>

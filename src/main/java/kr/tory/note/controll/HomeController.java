@@ -66,7 +66,6 @@ public class HomeController {
 		}
 		JSONObject jobj = JSONObject.fromObject(result);
 		try {
-			System.out.println(result.toString());
 			res.setCharacterEncoding("UTF-8");
 			res.getWriter().write(jobj.toString());
 		} catch (IOException e) {
@@ -153,5 +152,25 @@ public class HomeController {
 		delete_map.put("Nickname", session.getAttribute("val"));
 		ss.update("sql.notice_delete",delete_map);
 		return "/notice";
+	}
+	@RequestMapping(value = "/user_apply", method = RequestMethod.POST)
+	public void user_apply(HttpServletRequest req, HttpSession session, HttpServletResponse res) {
+		String AdmCheck = session.getAttribute("val").toString();
+		
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		if(AdmCheck.equals("관리자") || AdmCheck.equals("염종찬")) {
+			result.put("Nickname", req.getParameter("Nickname").toString());
+			ss.update("sql.user_apply", result);
+			result.put("msg", "승인 완료");
+		}else {
+			result.put("msg", "권한 없음");
+		}
+		JSONObject jobj = JSONObject.fromObject(result);
+		try {
+			res.setCharacterEncoding("UTF-8");
+			res.getWriter().write(jobj.toString());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}	
 	}
 }

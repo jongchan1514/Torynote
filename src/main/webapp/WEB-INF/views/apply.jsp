@@ -16,7 +16,7 @@
       <th>{{item.Nickname}}</th>
       <th>{{item.Age}}</th>
       <th>{{item.Sex}}</th>
-      <th><button class="btn form-control"> <i class="fa fa-book"></i>승인</button></th>
+      <th><button class="btn form-control" data-ng-click="user_apply($index)"> <i class="fa fa-book"></i>승인</button></th>
     </tr>
    </tbody>
  </table>
