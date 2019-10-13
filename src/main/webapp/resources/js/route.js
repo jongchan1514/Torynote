@@ -187,6 +187,9 @@ var app = angular.module('app', ['ngRoute','ngSanitize']);
 			$scope.userimg = "/../upload/" + response.data.data[0].img;
 			$scope.usernick = response.data.data[0].Nickname;
 		});
+		$scope.imgshift = function(){
+			window.open("/shift","",'width=700,height=80');
+		}
 	});
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	app.controller('app_open_notice', function($scope, $routeParams, $http, $rootScope) {
@@ -196,7 +199,6 @@ var app = angular.module('app', ['ngRoute','ngSanitize']);
 			  url: '/open_notice',
 			  params: {}
 		}).then(function(res) {
-			$scope.notice = res.data.data;
 			$scope.notice = res.data.data;
 			$scope.notice_size = res.data.data.length;
 			$scope.page_prev.data = false;
@@ -228,7 +230,7 @@ var app = angular.module('app', ['ngRoute','ngSanitize']);
 				$scope.views = res.data.result[0];
 			})
 		}
-		$scope.test = function(index){
+		$scope.open_page = function(index){
 			var len = index-1;
 			$http({
 				  method: 'POST',
@@ -253,6 +255,130 @@ var app = angular.module('app', ['ngRoute','ngSanitize']);
 		}
 	});
 	app.controller('app_open_table', function($scope, $routeParams, $http, $rootScope) {
-		
-		
+		var quarter = "";
+		var No = 0;
+		$scope.currentPage = 1;
+		$scope.boolean = false;
+		CKEDITOR.replace('table_editor', {});
+		$scope.table_reload = function(){
+			$http({
+				  method: 'POST',
+				  url: '/open_table',
+				  params: {}
+			}).then(function(res) {
+				$scope.opentable = res.data.result;
+				$scope.table_size = res.data.result.length;
+				$scope.table_page_prev = false;
+				$scope.table_page_next = false;				
+				$scope.table_pageSize = Math.ceil($scope.table_size/10);
+				if($scope.currentPage == 1) {
+					$scope.table_page_prev = true;
+				}else{
+					$scope.table_page_prev = false;
+				}
+				if($scope.currentPage + 5 >= $scope.pageSize){
+					 $scope.table_page_next = true;
+				}else{
+					$scope.table_page_next = false;
+				}
+				$scope.table_page_prev.data = function(){
+					$scope.currentPage = $scope.currentPage-5;
+					if($scope.currentPage <= $scope.pageSize) $scope.table_page_next = false;
+				}
+				$scope.table_page_next.data = function(){
+					$scope.currentPage = $scope.currentPage+5;
+					if($scope.currentPage+5 >= $scope.pageSize) $scope.table_page_next = true;
+				}
+			});
+		}
+		$scope.table_page = function(index){
+			var len = index-1;
+			$http({
+				  method: 'POST',
+				  url: '/open_table',
+				  params: {}
+			}).then(function(res) {
+				var page_len = (res.data.result.length) - len;
+				var page_list = [];
+				for(var i = 0; i < page_len; i++){
+					page_list[i] = res.data.result[i];
+				}
+				$scope.opentable = page_list;
+			});
+		}
+		$scope.table_write = function(){
+			$scope.boolean = true;
+			quarter = "insert";
+		}
+		$scope.table_cancel = function(){
+			$scope.boolean = false;
+			quarter = "";
+			$scope.table_views.Title = "";
+			CKEDITOR.instances.table_editor.setData("");
+		}
+		$scope.table_insert = function() {
+			var data = CKEDITOR.instances.table_editor.getData();	
+			$http({
+				  method: 'POST',
+				  url: '/table_insert',
+				  params: {'Title' : $scope.table_views.Title,
+					  	   'editor' : data,
+					  	   'quarter' : quarter,
+					  	   'No' : No
+				  }
+			}).then(function(response) {
+				window.location.href = "/Main#!/open_table"
+				$scope.boolean = false;
+				$scope.table_reload();
+			});
+		}
+		$scope.table_view = function(index){
+				var len = ($scope.opentable.length-1)-index;
+				var params = {'No' : $scope.opentable[len].No,
+					     'Nickname' :  $scope.opentable[len].Nickname,
+					     'Title' :  $scope.opentable[len].Title,
+					     'col' :  $scope.opentable[len].col + 1,
+				};
+				title = $scope.opentable[len].Title;
+				$http({
+					method:'POST',
+					url: '/table_view',
+					params : params
+				}).then(function(res) {
+					$scope.table_views = res.data.result[0];
+					$scope.table_reload();
+				})
+		};
+		$scope.table_alt = function(){
+			CKEDITOR.instances.table_editor.setData($scope.table_views.Tags);
+			$scope.boolean = !$scope.boolean;
+			quarter = "alt";
+			No = $scope.table_views.No;
+		}
+		$scope.table_delete = function(){
+			No = $scope.table_views.No;
+			$http({
+				  method: 'POST',
+				  url: '/table_delete',
+				  params: {'Title' : $scope.table_views.Title,
+					  	   'No' : No
+				  }
+			}).then(function(response) {
+				window.location.href = "/Main#!/open_table"
+				$scope.table_reload();
+			});
+		}
+//		$scope.table_search = function() {
+//			$http({
+//				  method: 'POST',
+//				  url: '/table_delete',
+//				  params: {'Title' : $scope.table_views.Title,
+//					  	   'No' : No
+//				  }
+//			}).then(function(response) {
+//				$scope.table_reload();
+//			});
+//			alert($scope.search);
+//		}
+		$scope.table_reload();
 	});

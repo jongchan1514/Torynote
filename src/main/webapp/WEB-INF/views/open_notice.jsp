@@ -18,11 +18,11 @@
 	<nav aria-label="Pagination alignment">
 	  <ul class="pagination justify-content-center">
 	    <li class="page-item"><button class="page-link" data-ng-model="page_prev.data" data-ng-disabled="page_prev.data" data-ng-click="page_prev()">이전페이지</button></li>
-	    <li class="page-item"><button class="page-link" data-ng-if = "pageSize >= 1" data-ng-click="test(currentPage)">{{currentPage}}</button></li>
-	    <li class="page-item"><button class="page-link" data-ng-if = "pageSize >= 2" data-ng-click="test(currentPage+5)">{{currentPage+1}}</button></li>
-	    <li class="page-item"><button class="page-link" data-ng-if = "pageSize >= 3" data-ng-click="test(currentPage+10)">{{currentPage+2}}</button></li>
-	    <li class="page-item"><button class="page-link" data-ng-if = "pageSize >= 4" data-ng-click="test(currentPage+15)">{{currentPage+3}}</button></li>
-	    <li class="page-item"><button class="page-link" data-ng-if = "pageSize >= 5" data-ng-click="test(currentPage+20)">{{currentPage+4}}</button></li> 
+	    <li class="page-item"><button class="page-link" data-ng-if = "pageSize >= 1" data-ng-click="open_page(currentPage)">{{currentPage}}</button></li>
+	    <li class="page-item"><button class="page-link" data-ng-if = "pageSize >= 2" data-ng-click="open_page(currentPage+5)">{{currentPage+1}}</button></li>
+	    <li class="page-item"><button class="page-link" data-ng-if = "pageSize >= 3" data-ng-click="open_page(currentPage+10)">{{currentPage+2}}</button></li>
+	    <li class="page-item"><button class="page-link" data-ng-if = "pageSize >= 4" data-ng-click="open_page(currentPage+15)">{{currentPage+3}}</button></li>
+	    <li class="page-item"><button class="page-link" data-ng-if = "pageSize >= 5" data-ng-click="open_page(currentPage+20)">{{currentPage+4}}</button></li> 
 	    <li class="page-item"><button class="page-link" data-ng-model="page_next.data" data-ng-disabled="page_next.data" data-ng-click="page_next()">다음페이지</button></li>
 	  </ul>
 	</nav>

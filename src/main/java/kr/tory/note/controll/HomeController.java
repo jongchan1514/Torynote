@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -17,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import kr.tory.note.util.HttpUtil;
@@ -55,7 +57,12 @@ public class HomeController {
 	}
 	@RequestMapping(value="/Root", method=RequestMethod.POST)
 	public void root(HttpServletRequest req, HttpSession hs, HttpServletResponse res) {
-		String AdmCheck = hs.getAttribute("val").toString();
+		String AdmCheck;
+		if(hs.getAttribute("val") != null) {
+			AdmCheck = hs.getAttribute("val").toString();
+		}else {
+			AdmCheck = "잘못된접근방식";
+		}
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		result.put("Nickname" , AdmCheck);
 		result.put("data",ss.selectList("sql.data" , result));
@@ -112,7 +119,7 @@ public class HomeController {
 	}
 	@RequestMapping(value="/imageUpload")
 	public void imageUpload(HttpServletResponse res, MultipartHttpServletRequest req) {
-		List<HashMap<String, Object>> files = HttpUtil.fileUpload(req, "upload");
+		List<HashMap<String, Object>> files = HttpUtil.fileUpload(req, "upload","imageUpload");
 //		System.out.println(files.toString());
 		HttpUtil.imgUpload(req, res, files);
 	}
@@ -156,7 +163,6 @@ public class HomeController {
 	@RequestMapping(value = "/user_apply", method = RequestMethod.POST)
 	public void user_apply(HttpServletRequest req, HttpSession session, HttpServletResponse res) {
 		String AdmCheck = session.getAttribute("val").toString();
-		
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		if(AdmCheck.equals("관리자") || AdmCheck.equals("염종찬")) {
 			result.put("Nickname", req.getParameter("Nickname").toString());
@@ -172,5 +178,74 @@ public class HomeController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}	
+	}
+	@RequestMapping(value = "/shift", method = RequestMethod.POST)	
+	public void shift(MultipartHttpServletRequest req, HttpSession hs, HttpServletResponse res) {	
+		List<HashMap<String, Object>> files = HttpUtil.fileUpload(req, "upload", "shift");
+//		System.out.println(files.toString());
+		HttpUtil.imgUpload(req, res, files);	
+	}
+	
+	@RequestMapping(value = "/open_table", method = RequestMethod.POST)	
+	public void open_table(HttpServletRequest req, HttpSession hs, HttpServletResponse res) {	
+		HashMap<String, Object> table_list = new HashMap<String, Object>();
+		table_list.put("result", ss.selectList("sql.open_table"));
+		JSONObject jobj = JSONObject.fromObject(table_list);
+		try {
+			res.setCharacterEncoding("UTF-8");
+			res.getWriter().write(jobj.toString());	
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	@RequestMapping(value = "/table_insert", method = RequestMethod.POST)
+	public String table_insert(HttpServletRequest req, HttpSession session) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		String quarter =  req.getParameter("quarter");
+		map.put("Title", req.getParameter("Title"));
+		map.put("Tags", req.getParameter("editor"));
+		map.put("Nickname", session.getAttribute("val"));
+		switch (quarter) {
+		case "insert":
+			ss.insert("sql.table_insert",map);
+			break;
+		case "alt":
+			map.put("No", req.getParameter("No"));
+			if(ss.selectList("sql.table_check",map).size() != 0) {
+			ss.update("sql.table_alt",map);
+			}
+			break;
+		default:
+			break;
+		}
+		return "/open_table";
+	}
+	@RequestMapping(value="/table_view", method = RequestMethod.POST)
+	public void table_view(HttpServletRequest req, HttpServletResponse res){
+		HashMap<String, Object> call = new HashMap<String, Object>();
+		call.put("No", req.getParameter("No"));
+		call.put("Nickname", req.getParameter("Nickname"));
+		call.put("Title", req.getParameter("Title"));
+		call.put("col", req.getParameter("col"));
+		ss.update("sql.table_col",call);
+		result.put("result",(ss.selectList("sql.table_view",call)));
+		JSONObject jobj = JSONObject.fromObject(result);
+		try {
+			res.setCharacterEncoding("UTF-8");
+			res.getWriter().write(jobj.toString());	
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	@RequestMapping(value = "/table_delete", method = RequestMethod.POST)
+	public String table_delete(HttpServletRequest req, HttpSession session) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("Title", req.getParameter("Title"));
+		map.put("Nickname", session.getAttribute("val"));
+		map.put("No", req.getParameter("No"));
+		if(ss.selectList("sql.table_check",map).size() != 0) {
+			ss.update("sql.table_delete",map);
+		}
+		return "/open_table";
 	}
 }

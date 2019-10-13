@@ -81,7 +81,7 @@
 		      <div class="sidebar-header">
 		        <div class="user-pic">
 		          <!-- <img class="img-responsive img-rounded" data-ng-src="{{userimg}}" style="vertical-align: middle; border-style: none;" alt="User picture"> -->
-		          <img data-ng-src="{{userimg}}" style="vertical-align: middle; border-style: none;" alt="User picture">
+		          <img data-ng-src="{{userimg}}" style="vertical-align: middle; border-style: none;" alt="User picture" data-ng-click="imgshift()">
 		        </div>
 		        <div class="user-info">
 		          <span class="user-name">
@@ -137,9 +137,6 @@
 		            <div class="sidebar-submenu">
 		              <ul>
 		                <li>
-		                  <a href="/Main#!/news">공지사항</a>
-		                </li>
-		                <li>
 		                  <a href="/Main#!/open_table">자유 게시판</a>
 		                </li>
 		              </ul>
@@ -153,13 +150,13 @@
 		            <div class="sidebar-submenu">
 		              <ul>
 		                <li>
-		                  <a href="/Main#!/edit">게시물 작성</a>
+		                  <a href="/Main#!/edit">메모 작성</a>
 		                </li>
 		                <li>
-		                  <a href="/Main#!/notice">내가 작성한 게시물</a>
+		                  <a href="/Main#!/notice">내가 작성한 메모</a>
 		                </li>
 		                <li>
-		                  <a href="/Main#!/open_notice">공개 된 게시물</a>
+		                  <a href="/Main#!/open_notice">공개 된 메모</a>
 		                </li>
 		              </ul>
 		            </div>

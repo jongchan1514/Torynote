@@ -59,4 +59,8 @@ public class GetController {
 	public String news() {	
 		return "news";			
 	}
+	@RequestMapping(value = "/shift", method = RequestMethod.GET)	
+	public String shift() {	
+		return "shift";			
+	}
 }

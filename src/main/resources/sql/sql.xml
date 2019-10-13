@@ -31,10 +31,19 @@
 	
 	<select id="view" parameterType="Hashmap" resultType="Hashmap">
 		SELECT Title,Tags,No FROM Notice_table WHERE `NO`='${No}' AND `Title`='${Title}' and `DelYn`='N'
+	</select>	
+	<select id="table_view" parameterType="Hashmap" resultType="Hashmap">
+		SELECT Title,Tags,No FROM Table_table WHERE `NO`='${No}' AND `Title`='${Title}' and `DelYn`='N'
+	</select>
+	<select id="table_check" parameterType="Hashmap" resultType="Hashmap">
+		SELECT Title,Tags,No FROM Table_table WHERE `NO`='${No}' AND `Nickname` = '${Nickname}' and `delYn` = 'N'
 	</select>
 	
 	<select id="data" parameterType="Hashmap" resultType="Hashmap">
 		SELECT Nickname , img FROM User_List WHERE `Nickname` = '${Nickname}';
+	</select>
+	<select id="open_table" parameterType="Hashmap" resultType="Hashmap">
+		SELECT No,Title, Tags, Nickname, DATE_FORMAT(TIME, '%Y-%m-%d %H:%i:%s') AS TIME , col FROM Table_table WHERE delYn = 'N'
 	</select>
 	
 	
@@ -46,13 +55,25 @@
 	<insert id="notice_insert" parameterType="HashMap">
 		INSERT INTO Notice_table (Title,Nickname,Notice,Tags) VALUE('${Title}','${Nickname}','${Notice}','${Tags}');
 	</insert>
+	<insert id="table_insert" parameterType="HashMap">
+		INSERT INTO Table_table (Title,Nickname,Tags) VALUE('${Title}','${Nickname}','${Tags}');
+	</insert>
 	
 	
 	<update id="notice_alt" parameterType="HashMap">
 		UPDATE Notice_table SET `Title` = '${Title}' , `Notice` = '${Notice}' , `Tags` = '${Tags}' where `No` = '${No}';
 	</update>
+	<update id="table_alt" parameterType="HashMap">
+		UPDATE Table_table SET `Title` = '${Title}' , `Tags` = '${Tags}' where `No` = '${No}';
+	</update>
+	<update id="table_col" parameterType="HashMap">
+		UPDATE Table_table SET `col` = '${col}'  where `No` = '${No}' AND `Nickname` = '${Nickname}' and `Title`='${Title}';
+	</update>
 	<update id="notice_delete" parameterType="HashMap">
 		UPDATE Notice_table SET `DelYn` = 'Y'  where `No` = '${No}';
+	</update>
+	<update id="table_delete" parameterType="HashMap">
+		UPDATE Table_table SET `DelYn` = 'Y'  where `No` = '${No}';
 	</update>
 	<update id="user_apply" parameterType="HashMap">
 		UPDATE User_List SET `Approval` = 'Y' where `Nickname` = '${Nickname}';

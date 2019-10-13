@@ -25,7 +25,7 @@ import net.sf.json.JSONSerializer;
 public class HttpUtil {
 	
 	//파일 업로드
-	 	public static List<HashMap<String, Object>> fileUpload(MultipartHttpServletRequest request, String path) {
+	 	public static List<HashMap<String, Object>> fileUpload(MultipartHttpServletRequest request, String path, String url) {
 	 		List<HashMap<String, Object>> resultList = new ArrayList<HashMap<String, Object>>();
 	 		SimpleDateFormat sf = new SimpleDateFormat("yyyyMMdd");
 	 		// 모든 업로드된 파일
@@ -44,10 +44,14 @@ public class HttpUtil {
 		 		String orgFilename = "";
 		 		String fileextension = "";
 		 		String today = sf.format(new Date());
-		 		/*톰캣 서버 war파일 배포 시*/
-		 		String savefolder = request.getSession().getServletContext().getRealPath("/") + "../" + path + "/" + today;
-		 		/*개발서버 사용 시*/
-//		 		String savefolder = request.getSession().getServletContext().getRealPath("/") + "resources/file/" + path + "/" + today;
+		 		String savefolder = "" ;
+		 		if(url.equals("shift")) {
+		 			savefolder = request.getSession().getServletContext().getRealPath("/") + "../" + path + "/";
+		 		}else {
+		 			savefolder = request.getSession().getServletContext().getRealPath("/") + "../" + path + "/" + today;
+		 		}
+//		 		/*개발서버 사용 시*/
+//		 		savefolder = request.getSession().getServletContext().getRealPath("/") + "resources/file/" + path + "/" + today;
 		
 		 		Boolean isExtension = false;
 		 		String[] extension = null;
@@ -106,10 +110,15 @@ public class HttpUtil {
 		 					continue;
 		 				}
 		 				
+		 				String dbsaveFullPath = "";
 		 				/*톰캣 서버 배포시*/
-		 				savefullPath = savefolder + "/" + encodeFilename + "." + fileextension;	
-		 				String dbsaveFullPath = "../" + path + "/" + today + "/" + encodeFilename + "." + fileextension;
-		 				
+		 				if(url.equals("shift")) {
+		 					savefullPath = savefolder + "/" + encodeFilename + "." + fileextension;	
+			 				dbsaveFullPath = "../" + path + "/" + encodeFilename + "." + fileextension;
+		 				}else {
+		 					savefullPath = savefolder + "/" + encodeFilename + "." + fileextension;	
+			 				dbsaveFullPath = "../" + path + "/" + today + "/" + encodeFilename + "." + fileextension;
+		 				}
 		 				/*개발 서버 이용시*/
 //		 				savefullPath = savefolder + "/" + encodeFilename + "." + fileextension;
 //		 				String dbsaveFullPath = "/resources/file/" + path + "/" + today + "/" + encodeFilename + "." + fileextension;
