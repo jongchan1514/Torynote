@@ -22,45 +22,29 @@ public class GetController {
 		session.invalidate();
 		return "redirect:/";	
 	}
-	@RequestMapping(value="/Main", method=RequestMethod.GET)
-	public String main(HttpServletRequest req, HttpSession session) {
+	@RequestMapping(value="/{path}", method=RequestMethod.GET)
+	public String main(@PathVariable("path") String path, HttpServletRequest req, HttpSession session) {
+		int flag = 0;
 		session = req.getSession(true);
-		if(session.getAttribute("val") == null) {
-			return "redirect:/";
+		String[] url = {"Main","apply","list","edit","notice","open_notice","open_table","news"};
+		if(("Main").equals(path)) {
+			if(session.getAttribute("val") == null) {
+				return "redirect:/";
+			}else {
+				return "Home";	
+			}
 		}else {
-			return "Home";	
+			for(int i = 0; i < url.length; i++) {
+				if(path.equals(url[i])) {
+					flag++;
+				}
+			}
+			if(flag != 1 && session.getAttribute("val") == null) {
+				return "redirect:/";
+			}else {
+				return path;	
+			}
 		}
-	}
-	@RequestMapping(value = "/apply", method = RequestMethod.GET)	
-	public String Users() {		
-		return "apply";			
-	}			
-	@RequestMapping(value = "/list", method = RequestMethod.GET)		
-	public String list() {	
-		return "list";		
-	}	
-	@RequestMapping(value = "/edit", method = RequestMethod.GET)	
-	public String edit() {	
-		return "edit";			
-	}	
-	@RequestMapping(value = "/notice", method = RequestMethod.GET)	
-	public String notice() {	
-		return "notice";			
-	}
-	@RequestMapping(value = "/open_notice", method = RequestMethod.GET)	
-	public String open_notice() {	
-		return "open_notice";			
-	}
-	@RequestMapping(value = "/open_table", method = RequestMethod.GET)	
-	public String open_table() {	
-		return "open_table";			
-	}
-	@RequestMapping(value = "/news", method = RequestMethod.GET)	
-	public String news() {	
-		return "news";			
-	}
-	@RequestMapping(value = "/shift", method = RequestMethod.GET)	
-	public String shift() {	
-		return "shift";			
+
 	}
 }

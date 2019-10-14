@@ -123,7 +123,13 @@ var app = angular.module('app', ['ngRoute','ngSanitize']);
 				method:'POST',
 				url: '/view',
 				params : params
-			}).then(function(res) { 
+			}).then(function(res) {
+				$scope.views = res.data.result[0];
+				if(res.data.result[0].Open == "N"){
+					$scope.views.Opendata = "공개전환";
+				}else{
+					$scope.views.Opendata = "비공개전환";
+				}
 				$scope.views = res.data.result[0];
 				$scope.views.Tags = $sce.trustAsHtml(res.data.result[0].Tags);
 			})
@@ -175,6 +181,20 @@ var app = angular.module('app', ['ngRoute','ngSanitize']);
 				});
 			})
 		}
+		$scope.notice_open = function(){
+			console.log($scope.views);
+			var params = {'No' : $scope.views.No,
+				     	  'Title' : $scope.views.Title,
+				     	  'Open' : $scope.views.Open
+			};
+			$http({
+				  method: 'POST',
+				  url: '/notice_open',
+				  params: params
+			}).then(function(res) {
+				console.log(res);
+			});
+		};
 	});
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	app.controller('app_root', function($scope, $routeParams, $http, $rootScope) {
@@ -187,9 +207,6 @@ var app = angular.module('app', ['ngRoute','ngSanitize']);
 			$scope.userimg = "/../upload/" + response.data.data[0].img;
 			$scope.usernick = response.data.data[0].Nickname;
 		});
-		$scope.imgshift = function(){
-			window.open("/shift","",'width=700,height=80');
-		}
 	});
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	app.controller('app_open_notice', function($scope, $routeParams, $http, $rootScope) {
@@ -368,17 +385,14 @@ var app = angular.module('app', ['ngRoute','ngSanitize']);
 				$scope.table_reload();
 			});
 		}
-//		$scope.table_search = function() {
-//			$http({
-//				  method: 'POST',
-//				  url: '/table_delete',
-//				  params: {'Title' : $scope.table_views.Title,
-//					  	   'No' : No
-//				  }
-//			}).then(function(response) {
-//				$scope.table_reload();
-//			});
-//			alert($scope.search);
-//		}
+		$scope.table_search = function() {
+			$http({
+				  method: 'POST',
+				  url: '/table_search',
+				  params: {'search' : $scope.search}
+			}).then(function(res) {
+				$scope.opentable = res.data.result;
+			});
+		}
 		$scope.table_reload();
 	});

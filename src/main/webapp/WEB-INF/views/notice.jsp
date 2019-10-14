@@ -38,7 +38,7 @@
         		</div>
         		<div id="viewval" class="modal-body"data-ng-model="views" data-ng-bind-html="views.Tags"></div>
 			    <div class="modal-footer">
-			       <button type="button" class="btn btn-info" data-ng-click="notice_open()" data-toggle="modal"  href="#myModal">공개전환</button>
+			       <button type="button" class="btn btn-info" data-ng-click="notice_open()" data-toggle="modal"  href="#myModal">{{views.Opendata}}</button>
 			       <button type="button" class="btn btn-warning" data-ng-click="alt()" data-toggle="modal"  href="#myModal">수정</button>
 			       <button type="button" class="btn btn-primary" data-ng-click="delete_data()" data-toggle="modal"  href="#myModal">삭제</button>
 			       <button type="button" class="btn btn-danger" data-toggle="modal"  href="#myModal">닫기</button>

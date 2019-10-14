@@ -1,6 +1,7 @@
 package kr.tory.note.controll;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -118,8 +119,8 @@ public class HomeController {
 		}
 	}
 	@RequestMapping(value="/imageUpload")
-	public void imageUpload(HttpServletResponse res, MultipartHttpServletRequest req) {
-		List<HashMap<String, Object>> files = HttpUtil.fileUpload(req, "upload","imageUpload");
+	public void imageUpload(HttpServletResponse res, MultipartHttpServletRequest req, HttpSession session) {
+		List<HashMap<String, Object>> files = HttpUtil.fileUpload(req, "upload","imageUpload",session);
 //		System.out.println(files.toString());
 		HttpUtil.imgUpload(req, res, files);
 	}
@@ -180,10 +181,14 @@ public class HomeController {
 		}	
 	}
 	@RequestMapping(value = "/shift", method = RequestMethod.POST)	
-	public void shift(MultipartHttpServletRequest req, HttpSession hs, HttpServletResponse res) {	
-		List<HashMap<String, Object>> files = HttpUtil.fileUpload(req, "upload", "shift");
-//		System.out.println(files.toString());
-		HttpUtil.imgUpload(req, res, files);	
+	public String shift(MultipartHttpServletRequest req, HttpSession hs, HttpServletResponse res) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		List<HashMap<String, Object>> files = HttpUtil.fileUpload(req, "upload", "shift", hs);
+		map.put("Nickname", hs.getAttribute("val"));
+		map.put("img", hs.getAttribute("img"));
+		System.out.println(map);
+		ss.update("sql.img_updata", map);
+		return "redirect:/Main";
 	}
 	
 	@RequestMapping(value = "/open_table", method = RequestMethod.POST)	
@@ -247,5 +252,35 @@ public class HomeController {
 			ss.update("sql.table_delete",map);
 		}
 		return "/open_table";
+	}
+	@RequestMapping(value = "/table_search", method = RequestMethod.POST)
+	public void table_search(HttpServletRequest req, HttpSession session, HttpServletResponse res) {
+
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("search", req.getParameter("search"));
+		map.put("result", ss.selectList("sql.table_search",map));
+		JSONObject jobj = JSONObject.fromObject(map);
+		try {
+			res.setCharacterEncoding("UTF-8");
+			res.getWriter().write(jobj.toString());	
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	@RequestMapping(value = "/notice_open", method = RequestMethod.POST)
+	public void notice_open(HttpServletRequest req, HttpSession session, HttpServletResponse res) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		String Open = "";
+		if((req.getParameter("Open")).equals("N")) {
+			Open = "Y";
+		}else {
+			Open = "N";
+		}
+		System.out.println(Open);
+		map.put("NO", req.getParameter("No"));
+		map.put("Title", req.getParameter("Title"));
+		map.put("Open", Open);
+		map.put("Nickname", session.getAttribute("val"));
+		ss.update("sql.notice_open",map);
 	}
 }

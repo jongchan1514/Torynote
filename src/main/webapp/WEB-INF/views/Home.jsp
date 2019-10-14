@@ -9,6 +9,7 @@
 	    <meta name="viewport" content="width=device-width, initial-scale=1">
 	    <meta name="description" content="Responsive sidebar template with sliding effect and dropdown menu based on bootstrap 3">
 	    <title>Tory Note</title>
+	    <link rel="shortcut icon" type="image/x-icon" href="/resources/favicon.ico">
 	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
@@ -80,8 +81,7 @@
 		      </div>
 		      <div class="sidebar-header">
 		        <div class="user-pic">
-		          <!-- <img class="img-responsive img-rounded" data-ng-src="{{userimg}}" style="vertical-align: middle; border-style: none;" alt="User picture"> -->
-		          <img data-ng-src="{{userimg}}" style="vertical-align: middle; border-style: none;" alt="User picture" data-ng-click="imgshift()">
+		          <img data-ng-src="{{userimg}}" style="vertical-align: middle; border-style: none;" alt="User picture" data-toggle="modal"  href="#myModal">
 		        </div>
 		        <div class="user-info">
 		          <span class="user-name">
@@ -204,5 +204,23 @@
 		  	</div>
 		  </section>
 		</div>
+		<div class="modal fade" id="myModal">
+			<div class="modal-dialog" style="max-width: 100%; width: auto; display: table;">
+	      		<div class="modal-content">
+	        		<div class="modal-header">
+        				<h3 id="viewtitle" class="modal-title" data-ng-model="table_views.Title">대표 이미지 변경</h3>
+        			</div>
+	        		<div id="viewval" class="modal-body">
+	        			<form action="/shift" method="post" enctype="multipart/form-data">
+							<input type="file" name="imgname" style="width: 100%;">
+							<button type="submit" class="btn btn-warning" data-toggle="modal"  href="#myModal">수정</button>
+				       		<button type="button" class="btn btn-danger" data-toggle="modal"  href="#myModal">닫기</button>
+						</form>
+	        		</div>
+				    <div class="modal-footer"></div>					
+				</div>
+			</div>
+		</div>
+		
 	</body>
 </html>

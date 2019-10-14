@@ -9,8 +9,8 @@
                     <div class="col-sm-4">
                         <div class="search-box">
                             <input type="text" class="form-control" placeholder="Search&hellip;" data-ng-model="search" value="{{search}}">
-                         	<div class="input-group-append" >
-		                		<i class="fa fa-search" aria-hidden="true" data-ng-click="table_search()"></i>
+                         	<div class="input-group-append"  data-ng-click="table_search()">
+		                		<i class="fa fa-search" aria-hidden="true"></i>
 		            		</div>
                         </div>
                     </div>
@@ -51,7 +51,7 @@
 	  </ul>
 	</nav>
 	
-		<div class="modal fade" id="myModal">
+	<div class="modal fade" id="myModal">
 		<div class="modal-dialog" style="max-width: 100%; width: auto; display: table;">
       		<div class="modal-content">
         		<div class="modal-header">

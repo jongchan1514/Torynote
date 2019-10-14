@@ -30,13 +30,16 @@
 	</select>
 	
 	<select id="view" parameterType="Hashmap" resultType="Hashmap">
-		SELECT Title,Tags,No FROM Notice_table WHERE `NO`='${No}' AND `Title`='${Title}' and `DelYn`='N'
+		SELECT Title,Tags,No,Open FROM Notice_table WHERE `NO`='${No}' AND `Title`='${Title}' and `DelYn`='N'
 	</select>	
 	<select id="table_view" parameterType="Hashmap" resultType="Hashmap">
 		SELECT Title,Tags,No FROM Table_table WHERE `NO`='${No}' AND `Title`='${Title}' and `DelYn`='N'
 	</select>
 	<select id="table_check" parameterType="Hashmap" resultType="Hashmap">
 		SELECT Title,Tags,No FROM Table_table WHERE `NO`='${No}' AND `Nickname` = '${Nickname}' and `delYn` = 'N'
+	</select>
+	<select id="table_search" parameterType="Hashmap" resultType="Hashmap">
+		SELECT No,Title, Tags, Nickname, DATE_FORMAT(TIME, '%Y-%m-%d %H:%i:%s') AS TIME , col FROM Table_table WHERE `Title` LIKE '%${search}%' AND delYn = 'N';
 	</select>
 	
 	<select id="data" parameterType="Hashmap" resultType="Hashmap">
@@ -60,8 +63,14 @@
 	</insert>
 	
 	
+	<update id="img_updata" parameterType="HashMap">
+		UPDATE User_List SET `img` = '${img}' where `Nickname` = '${Nickname}';
+	</update>
 	<update id="notice_alt" parameterType="HashMap">
 		UPDATE Notice_table SET `Title` = '${Title}' , `Notice` = '${Notice}' , `Tags` = '${Tags}' where `No` = '${No}';
+	</update>
+	<update id="notice_open" parameterType="HashMap">
+		UPDATE Notice_table SET `Open` = '${Open}' where `No` = '${No}' AND `Nickname` = '${Nickname}' and `Title`='${Title}';
 	</update>
 	<update id="table_alt" parameterType="HashMap">
 		UPDATE Table_table SET `Title` = '${Title}' , `Tags` = '${Tags}' where `No` = '${No}';

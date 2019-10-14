@@ -15,6 +15,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -23,9 +24,9 @@ import net.sf.json.JSONObject;
 import net.sf.json.JSONSerializer;
 
 public class HttpUtil {
-	
 	//파일 업로드
-	 	public static List<HashMap<String, Object>> fileUpload(MultipartHttpServletRequest request, String path, String url) {
+	
+	 	public static List<HashMap<String, Object>> fileUpload(MultipartHttpServletRequest request, String path, String url, HttpSession session) {
 	 		List<HashMap<String, Object>> resultList = new ArrayList<HashMap<String, Object>>();
 	 		SimpleDateFormat sf = new SimpleDateFormat("yyyyMMdd");
 	 		// 모든 업로드된 파일
@@ -46,7 +47,7 @@ public class HttpUtil {
 		 		String today = sf.format(new Date());
 		 		String savefolder = "" ;
 		 		if(url.equals("shift")) {
-		 			savefolder = request.getSession().getServletContext().getRealPath("/") + "../" + path + "/";
+		 			savefolder = request.getSession().getServletContext().getRealPath("/") + "../" + path ;
 		 		}else {
 		 			savefolder = request.getSession().getServletContext().getRealPath("/") + "../" + path + "/" + today;
 		 		}
@@ -115,6 +116,9 @@ public class HttpUtil {
 		 				if(url.equals("shift")) {
 		 					savefullPath = savefolder + "/" + encodeFilename + "." + fileextension;	
 			 				dbsaveFullPath = "../" + path + "/" + encodeFilename + "." + fileextension;
+			 				String img = encodeFilename + "." + fileextension;
+			 				System.out.println(img);
+			 				session.setAttribute("img", img);
 		 				}else {
 		 					savefullPath = savefolder + "/" + encodeFilename + "." + fileextension;	
 			 				dbsaveFullPath = "../" + path + "/" + today + "/" + encodeFilename + "." + fileextension;
@@ -242,4 +246,5 @@ public class HttpUtil {
 	        }
 			return sspwd;
 		}
+		
 }
