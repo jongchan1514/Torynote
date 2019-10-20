@@ -209,7 +209,7 @@ var app = angular.module('app', ['ngRoute','ngSanitize']);
 		});
 	});
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	app.controller('app_open_notice', function($scope, $routeParams, $http, $rootScope) {
+	app.controller('app_open_notice', function($scope, $routeParams, $http, $rootScope, $sce) {
 		$scope.currentPage = 1;
 		$http({
 			  method: 'POST',
@@ -245,6 +245,7 @@ var app = angular.module('app', ['ngRoute','ngSanitize']);
 				params : params
 			}).then(function(res) {
 				$scope.views = res.data.result[0];
+				$scope.views.Tags = $sce.trustAsHtml(res.data.result[0].Tags);
 			})
 		}
 		$scope.open_page = function(index){

@@ -12,6 +12,7 @@
 		p:username="moonstory9"
 		p:password="151412as"
 	/>
+	<!-- 	p:url="jdbc:mysql://192.168.10.102:3306/Tory_note" -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean"
 		p:dataSource-ref="dataSource"
 		p:mapperLocations="classpath:/sql/*.xml"

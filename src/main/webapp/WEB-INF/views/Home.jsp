@@ -81,7 +81,7 @@
 		      </div>
 		      <div class="sidebar-header">
 		        <div class="user-pic">
-		          <img data-ng-src="{{userimg}}" style="vertical-align: middle; border-style: none;" alt="User picture" data-toggle="modal"  href="#myModal">
+		          <img data-ng-src="{{userimg}}" style="vertical-align: middle; border-style: none;" alt="User picture" data-toggle="modal"  href="#myModal_img">
 		        </div>
 		        <div class="user-info">
 		          <span class="user-name">
@@ -204,7 +204,7 @@
 		  	</div>
 		  </section>
 		</div>
-		<div class="modal fade" id="myModal">
+		<div class="modal fade" id="myModal_img">
 			<div class="modal-dialog" style="max-width: 100%; width: auto; display: table;">
 	      		<div class="modal-content">
 	        		<div class="modal-header">
@@ -213,8 +213,8 @@
 	        		<div id="viewval" class="modal-body">
 	        			<form action="/shift" method="post" enctype="multipart/form-data">
 							<input type="file" name="imgname" style="width: 100%;">
-							<button type="submit" class="btn btn-warning" data-toggle="modal"  href="#myModal">수정</button>
-				       		<button type="button" class="btn btn-danger" data-toggle="modal"  href="#myModal">닫기</button>
+							<button type="submit" class="btn btn-warning" data-toggle="modal"  href="#myModal_img">수정</button>
+				       		<button type="button" class="btn btn-danger" data-toggle="modal"  href="#myModal_img">닫기</button>
 						</form>
 	        		</div>
 				    <div class="modal-footer"></div>					

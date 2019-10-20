@@ -277,7 +277,7 @@ public class HomeController {
 			Open = "N";
 		}
 		System.out.println(Open);
-		map.put("NO", req.getParameter("No"));
+		map.put("No", req.getParameter("No"));
 		map.put("Title", req.getParameter("Title"));
 		map.put("Open", Open);
 		map.put("Nickname", session.getAttribute("val"));
